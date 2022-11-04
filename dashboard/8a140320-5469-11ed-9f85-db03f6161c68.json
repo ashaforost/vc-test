@@ -1,0 +1,1233 @@
+{
+  "entityType" : "DASHBOARD",
+  "entity" : {
+    "assignedCustomers" : null,
+    "configuration" : {
+      "widgets" : {
+        "f33c746c-0dfc-c212-395b-b448c8a17209" : {
+          "isSystemType" : true,
+          "bundleAlias" : "cards",
+          "typeAlias" : "entities_table",
+          "type" : "latest",
+          "title" : "New widget",
+          "sizeX" : 11,
+          "sizeY" : 11,
+          "config" : {
+            "timewindow" : {
+              "realtime" : {
+                "interval" : 1000,
+                "timewindowMs" : 86400000
+              },
+              "aggregation" : {
+                "type" : "NONE",
+                "limit" : 200
+              }
+            },
+            "showTitle" : true,
+            "backgroundColor" : "rgb(255, 255, 255)",
+            "color" : "rgba(0, 0, 0, 0.87)",
+            "padding" : "4px",
+            "settings" : {
+              "enableSearch" : true,
+              "displayPagination" : true,
+              "defaultPageSize" : 10,
+              "defaultSortOrder" : "entityName",
+              "displayEntityName" : true,
+              "displayEntityType" : false,
+              "enableSelectColumnDisplay" : false,
+              "entitiesTitle" : "Thermostats",
+              "displayEntityLabel" : false,
+              "entityNameColumnTitle" : "Thermostat name"
+            },
+            "title" : "Thermostats",
+            "dropShadow" : true,
+            "enableFullscreen" : false,
+            "titleStyle" : {
+              "fontSize" : "16px",
+              "fontWeight" : 400,
+              "padding" : "5px 10px 5px 10px"
+            },
+            "useDashboardTimewindow" : false,
+            "showLegend" : false,
+            "datasources" : [ {
+              "type" : "entity",
+              "name" : null,
+              "entityAliasId" : "68a058e1-fdda-8482-715b-3ae4a488568e",
+              "dataKeys" : [ {
+                "name" : "active",
+                "type" : "attribute",
+                "label" : "Active",
+                "color" : "#2196f3",
+                "settings" : {
+                  "columnWidth" : "0px",
+                  "useCellStyleFunction" : true,
+                  "useCellContentFunction" : true,
+                  "cellContentFunction" : "value = '&#11044;';\nreturn value;",
+                  "cellStyleFunction" : "var color;\nif (value === \"true\") {\n    color = 'rgb(39, 134, 34)';\n} else {\n    color = 'rgb(255, 0, 0)';\n}\nreturn {\n    color: color,\n    fontSize: '18px'\n};"
+                },
+                "_hash" : 0.9264526512320641
+              }, {
+                "name" : "temperature",
+                "type" : "timeseries",
+                "label" : "Temperature",
+                "color" : "#4caf50",
+                "settings" : {
+                  "columnWidth" : "0px",
+                  "useCellStyleFunction" : false,
+                  "useCellContentFunction" : false
+                },
+                "_hash" : 0.9801965063904188,
+                "units" : "°C",
+                "decimals" : 1
+              }, {
+                "name" : "humidity",
+                "type" : "timeseries",
+                "label" : "Humidity",
+                "color" : "#f44336",
+                "settings" : {
+                  "columnWidth" : "0px",
+                  "useCellStyleFunction" : false,
+                  "useCellContentFunction" : false
+                },
+                "_hash" : 0.5726727868178358,
+                "units" : "%",
+                "decimals" : 0
+              }, {
+                "name" : "latitude",
+                "type" : "attribute",
+                "label" : "latitude",
+                "color" : "#ffc107",
+                "settings" : {
+                  "columnWidth" : "0px",
+                  "useCellStyleFunction" : false,
+                  "cellStyleFunction" : "",
+                  "useCellContentFunction" : false,
+                  "cellContentFunction" : ""
+                },
+                "_hash" : 0.16055765877264894
+              }, {
+                "name" : "longitude",
+                "type" : "attribute",
+                "label" : "longitude",
+                "color" : "#607d8b",
+                "settings" : {
+                  "columnWidth" : "0px",
+                  "useCellStyleFunction" : false,
+                  "cellStyleFunction" : "",
+                  "useCellContentFunction" : false,
+                  "cellContentFunction" : ""
+                },
+                "_hash" : 0.10969512220289346
+              } ]
+            } ],
+            "showTitleIcon" : false,
+            "titleIcon" : null,
+            "iconColor" : "rgba(0, 0, 0, 0.87)",
+            "iconSize" : "24px",
+            "titleTooltip" : "",
+            "widgetStyle" : { },
+            "displayTimewindow" : true,
+            "actions" : {
+              "headerButton" : [ {
+                "id" : "85b803db-90f2-5c63-1388-a378e0eb10d6",
+                "name" : "Edit location",
+                "icon" : "map",
+                "type" : "openDashboardState",
+                "targetDashboardStateId" : "map",
+                "setEntityId" : false
+              }, {
+                "name" : "Add",
+                "icon" : "add",
+                "type" : "customPretty",
+                "customHtml" : "<form #addEntityForm=\"ngForm\" [formGroup]=\"addEntityFormGroup\"\n        (ngSubmit)=\"save()\" class=\"add-entity-form\">\n    <mat-toolbar color=\"primary\">\n        <h2>Add thermostat</h2>\n        <span fxFlex></span>\n        <button mat-icon-button (click)=\"cancel()\" type=\"button\">\n            <mat-icon class=\"material-icons\">close</mat-icon>\n        </button>\n    </mat-toolbar>\n    <mat-progress-bar color=\"warn\" mode=\"indeterminate\" *ngIf=\"isLoading$ | async\">\n    </mat-progress-bar>\n    <div style=\"height: 4px;\" *ngIf=\"!(isLoading$ | async)\"></div>\n    <div mat-dialog-content fxLayout=\"column\">\n        <mat-form-field fxFlex class=\"mat-block\">\n            <mat-label>Thermostat name</mat-label>\n            <input matInput formControlName=\"entityName\" required>\n            <mat-error *ngIf=\"addEntityFormGroup.get('entityName').hasError('required')\">\n                Thermostat name is required.\n            </mat-error>\n        </mat-form-field>\n        <div formGroupName=\"attributes\" fxLayout=\"column\">\n            <mat-slide-toggle formControlName=\"temperatureAlarmFlag\">\n                High temperature alarm\n            </mat-slide-toggle>\n            <mat-form-field fxFlex class=\"mat-block\">\n                <mat-label>High temperature threshold, °C</mat-label>\n                <input type=\"number\" step=\"any\" matInput\n                    [required] = \"addEntityFormGroup.get('attributes').get('temperatureAlarmFlag').value\"\n                    formControlName=\"temperatureAlarmThreshold\">\n                <mat-error *ngIf=\"addEntityFormGroup.get('attributes').get('temperatureAlarmThreshold').hasError('required')\">\n                    High temperature threshold is required.\n                </mat-error>\n            </mat-form-field>\n        \n            <mat-slide-toggle formControlName=\"humidityAlarmFlag\">\n                Low humidity alarm\n            </mat-slide-toggle>\n                \n            <mat-form-field fxFlex class=\"mat-block\">\n                <mat-label>Low humidity threshold, %</mat-label>\n                <input type=\"number\" step=\"any\" matInput\n                    [required] = \"addEntityFormGroup.get('attributes').get('humidityAlarmFlag').value\"\n                    formControlName=\"humidityAlarmThreshold\">\n                <mat-error *ngIf=\"addEntityFormGroup.get('attributes').get('humidityAlarmThreshold').hasError('required')\">\n                    Low humidity threshold is required.\n                </mat-error>\n            </mat-form-field>\n        </div>\n    </div>\n    <div mat-dialog-actions fxLayout=\"row\" fxLayoutAlign=\"end center\">\n        <button mat-button mat-raised-button color=\"primary\"\n                type=\"submit\"\n                [disabled]=\"(isLoading$ | async) || addEntityForm.invalid || !addEntityForm.dirty\">\n            Create\n        </button>\n        <button mat-button color=\"primary\"\n                type=\"button\"\n                [disabled]=\"(isLoading$ | async)\"\n                (click)=\"cancel()\" cdkFocusInitial>\n            Cancel\n        </button>\n    </div>\n</form>",
+                "customCss" : ".add-entity-form{\n    width: 300px;\n}\n",
+                "customFunction" : "let $injector = widgetContext.$scope.$injector;\nlet customDialog = $injector.get(widgetContext.servicesMap.get('customDialog'));\nlet deviceService = $injector.get(widgetContext.servicesMap.get('deviceService'));\nlet attributeService = $injector.get(widgetContext.servicesMap.get('attributeService'));\n\nopenAddEntityDialog();\n\nfunction openAddEntityDialog() {\n    customDialog.customDialog(htmlTemplate, AddEntityDialogController).subscribe();\n}\n\nfunction AddEntityDialogController(instance) {\n    let vm = instance;\n    \n    vm.addEntityFormGroup = vm.fb.group({\n        entityName: ['', [vm.validators.required]],\n        attributes: vm.fb.group({\n            temperatureAlarmFlag: [false],\n            temperatureAlarmThreshold: [{value: null, disabled: true}],\n            humidityAlarmFlag: [false],\n            humidityAlarmThreshold: [{value: null, disabled: true}]\n        })\n    });\n    \n    vm.addEntityFormGroup.get('attributes').get('temperatureAlarmFlag').valueChanges\n    .subscribe(activate => {\n        if (activate) {\n            vm.addEntityFormGroup.get('attributes').get('temperatureAlarmThreshold').enable();\n        } else {\n            vm.addEntityFormGroup.get('attributes').get('temperatureAlarmThreshold').disable();\n        }\n    });\n    \n    vm.addEntityFormGroup.get('attributes').get('humidityAlarmFlag').valueChanges\n    .subscribe(activate => {\n        if (activate) {\n            vm.addEntityFormGroup.get('attributes').get('humidityAlarmThreshold').enable();\n        } else {\n            vm.addEntityFormGroup.get('attributes').get('humidityAlarmThreshold').disable();\n        }\n    });\n\n    vm.save = function() {\n        vm.addEntityFormGroup.markAsPristine();\n        saveEntityObservable().subscribe(\n            function (entity) {\n                saveAttributes(entity.id).subscribe(\n                    function () {\n                        widgetContext.updateAliases();\n                        vm.dialogRef.close(null);\n                    }\n                );\n            }\n        );\n    };\n    \n    vm.cancel = function() {\n        vm.dialogRef.close(null);\n    };\n    \n    function saveEntityObservable() {\n        const formValues = vm.addEntityFormGroup.value;\n        let entity = {\n            name: formValues.entityName,\n            type: \"thermostat\"\n        };\n        return deviceService.saveDevice(entity);\n    }\n    \n    function saveAttributes(entityId) {\n        let attributes = vm.addEntityFormGroup.get('attributes').value;\n        let attributesArray = [];\n        for (let key in attributes) {\n            if(attributes[key] !== null) {\n                attributesArray.push({key: key, value: attributes[key]});\n            }\n        }\n        if (attributesArray.length > 0) {\n            return attributeService.saveEntityAttributes(entityId, \"SERVER_SCOPE\", attributesArray);\n        } else {\n            return widgetContext.rxjs.of([]);\n        }\n    }\n}",
+                "customResources" : [ ],
+                "id" : "8ab5a518-67d2-b6a2-956d-81fd512294b2"
+              } ],
+              "actionCellButton" : [ {
+                "id" : "ca241cd8-788d-5508-a9ce-74b03ef42a7f",
+                "name" : "Chart",
+                "icon" : "show_chart",
+                "type" : "openDashboardState",
+                "targetDashboardStateId" : "chart",
+                "setEntityId" : true
+              }, {
+                "name" : "Edit",
+                "icon" : "edit",
+                "type" : "customPretty",
+                "customHtml" : "<form #editEntityForm=\"ngForm\" [formGroup]=\"editEntityFormGroup\"\n      (ngSubmit)=\"save()\" class=\"edit-entity-form\">\n    <mat-toolbar color=\"primary\">\n        <h2>Edit thermostat {{entityName}}</h2>\n        <span fxFlex></span>\n        <button mat-icon-button (click)=\"cancel()\" type=\"button\">\n            <mat-icon class=\"material-icons\">close</mat-icon>\n        </button>\n    </mat-toolbar>\n    <mat-progress-bar color=\"warn\" mode=\"indeterminate\" *ngIf=\"isLoading$ | async\">\n    </mat-progress-bar>\n    <div style=\"height: 4px;\" *ngIf=\"!(isLoading$ | async)\"></div>\n    <div mat-dialog-content fxLayout=\"column\">\n        <mat-form-field fxFlex class=\"mat-block\">\n            <mat-label>Thermostat name</mat-label>\n            <input matInput formControlName=\"entityName\" readonly>\n        </mat-form-field>\n        <div formGroupName=\"attributes\" fxLayout=\"column\">\n            <mat-slide-toggle formControlName=\"temperatureAlarmFlag\">\n                High temperature alarm\n            </mat-slide-toggle>\n            <mat-form-field fxFlex class=\"mat-block\">\n                <mat-label>High temperature threshold, °C</mat-label>\n                <input type=\"number\" step=\"any\" matInput\n                        [required] = \"editEntityFormGroup.get('attributes').get('temperatureAlarmFlag').value\"\n                        formControlName=\"temperatureAlarmThreshold\">\n                <mat-error *ngIf=\"editEntityFormGroup.get('attributes').get('temperatureAlarmThreshold').hasError('required')\">\n                    High temperature threshold is required.\n                </mat-error>\n            </mat-form-field>\n\n            <mat-slide-toggle formControlName=\"humidityAlarmFlag\">\n                Low humidity alarm\n            </mat-slide-toggle>\n\n            <mat-form-field fxFlex class=\"mat-block\">\n                <mat-label>Low humidity threshold, %</mat-label>\n                <input type=\"number\" step=\"any\" matInput\n                       [required] = \"editEntityFormGroup.get('attributes').get('humidityAlarmFlag').value\"\n                       formControlName=\"humidityAlarmThreshold\">\n                <mat-error *ngIf=\"editEntityFormGroup.get('attributes').get('humidityAlarmThreshold').hasError('required')\">\n                    Low humidity threshold is required.\n                </mat-error>\n            </mat-form-field>\n        </div>\n    </div>\n    <div mat-dialog-actions fxLayout=\"row\" fxLayoutAlign=\"end center\">\n        <button mat-raised-button color=\"primary\"\n                type=\"submit\"\n                [disabled]=\"(isLoading$ | async) || editEntityForm.invalid || !editEntityForm.dirty\">\n            Save\n        </button>\n        <button mat-button color=\"primary\"\n                type=\"button\"\n                [disabled]=\"(isLoading$ | async)\"\n                (click)=\"cancel()\" cdkFocusInitial>\n            Cancel\n        </button>\n    </div>\n</form>",
+                "customCss" : ".edit-entity-form{\n    width: 300px;\n}",
+                "customFunction" : "let $injector = widgetContext.$scope.$injector;\nlet customDialog = $injector.get(widgetContext.servicesMap.get('customDialog'));\nlet attributeService = $injector.get(widgetContext.servicesMap.get('attributeService'));\n\nopenEditEntityDialog();\n\nfunction openEditEntityDialog() {\n    customDialog.customDialog(htmlTemplate, EditEntityDialogController).subscribe();\n}\n\nfunction EditEntityDialogController(instance) {\n    let vm = instance;\n    \n    vm.entityId = entityId;\n    vm.entityName = entityName;\n    vm.attributes = {};\n    \n    vm.editEntityFormGroup = vm.fb.group({\n        entityName: [''],\n        attributes: vm.fb.group({\n            temperatureAlarmFlag: [false],\n            temperatureAlarmThreshold: [{value: null, disabled: true}],\n            humidityAlarmFlag: [false],\n            humidityAlarmThreshold: [{value: null, disabled: true}]\n        })\n    });\n    \n    vm.editEntityFormGroup.get('attributes').get('temperatureAlarmFlag').valueChanges\n    .subscribe(activate => {\n        if (activate) {\n            vm.editEntityFormGroup.get('attributes').get('temperatureAlarmThreshold').enable();\n        } else {\n            vm.editEntityFormGroup.get('attributes').get('temperatureAlarmThreshold').disable();\n        }\n    });\n    \n    vm.editEntityFormGroup.get('attributes').get('humidityAlarmFlag').valueChanges\n    .subscribe(activate => {\n        if (activate) {\n            vm.editEntityFormGroup.get('attributes').get('humidityAlarmThreshold').enable();\n        } else {\n            vm.editEntityFormGroup.get('attributes').get('humidityAlarmThreshold').disable();\n        }\n    });\n    \n    \n    getEntityInfo();\n    \n    \n    vm.save = function() {\n        vm.editEntityFormGroup.markAsPristine();\n        saveAttributes(entityId).subscribe(\n            function () {\n                vm.dialogRef.close(null);\n            }\n        );\n    };\n    \n    vm.cancel = function() {\n        vm.dialogRef.close(null);\n    };\n    \n    function getEntityAttributes(attributes) {\n        for (var i = 0; i < attributes.length; i++) {\n            vm.attributes[attributes[i].key] = attributes[i].value;\n        }\n    }\n    \n    function getEntityInfo() {\n        attributeService.getEntityAttributes(entityId, 'SERVER_SCOPE').subscribe(\n            function (attributes) {\n                getEntityAttributes(attributes);\n                vm.editEntityFormGroup.patchValue({\n                    entityName: vm.entityName,\n                    attributes: vm.attributes\n                });\n                // if(vm.attributes.temperatureAlarmFlag) {\n                //     vm.editEntityFormGroup.get('attributes').get('temperatureAlarmThreshold').enable();\n                // }\n                // if(vm.attributes.humidityAlarmFlag) {\n                //     vm.editEntityFormGroup.get('attributes').get('humidityAlarmThreshold').enable();\n                // }\n            }\n        );\n    }\n    \n    function saveAttributes(entityId) {\n        let attributes = vm.editEntityFormGroup.get('attributes').value;\n        let attributesArray = [];\n        for (let key in attributes) {\n            if (attributes[key] !== vm.attributes[key]) {\n                attributesArray.push({key: key, value: attributes[key]});\n            }\n        }\n        if (attributesArray.length > 0) {\n            return attributeService.saveEntityAttributes(entityId, \"SERVER_SCOPE\", attributesArray);\n        } else {\n            return widgetContext.rxjs.of([]);\n        }\n    }\n}",
+                "customResources" : [ ],
+                "id" : "7506576f-87ba-d3a0-88fb-e304d451776d"
+              }, {
+                "name" : "Delete",
+                "icon" : "delete",
+                "type" : "custom",
+                "customFunction" : "let $injector = widgetContext.$scope.$injector;\nlet dialogs = $injector.get(widgetContext.servicesMap.get('dialogs'));\nlet deviceService = $injector.get(widgetContext.servicesMap.get('deviceService'));\n\nopenDeleteEntityDialog();\n\nfunction openDeleteEntityDialog() {\n    let title = 'Delete thermostat \"' +  entityName + '\"';\n    let content = 'Are you sure you want to delete the thermostat \"' +\n        entityName + '\"?';\n    dialogs.confirm(title, content, 'Cancel', 'Delete').subscribe(\n        function(result) {\n            if (result) {\n                deleteEntity();\n            }\n        }\n    );\n}\n\nfunction deleteEntity() {\n    deviceService.deleteDevice(entityId.id).subscribe(\n        function success() {\n            widgetContext.updateAliases();\n        },\n        function fail() {\n            showErrorDialog();\n        }\n    );\n}\n\nfunction showErrorDialog() {\n    let title = 'Error';\n    let content = 'An error occurred while deleting the thermostat. Please try again.';\n    dialogs.alert(title, content, 'CLOSE').subscribe(\n        function(result) {}\n    );\n}",
+                "id" : "3488848b-e47d-6af6-659f-5d78369ece5e"
+              } ],
+              "rowClick" : [ ]
+            }
+          },
+          "id" : "f33c746c-0dfc-c212-395b-b448c8a17209"
+        },
+        "7943196b-eedb-d422-f9c3-b32d379ad172" : {
+          "isSystemType" : true,
+          "bundleAlias" : "alarm_widgets",
+          "typeAlias" : "alarms_table",
+          "type" : "alarm",
+          "title" : "New widget",
+          "sizeX" : 13,
+          "sizeY" : 5,
+          "config" : {
+            "timewindow" : {
+              "realtime" : {
+                "interval" : 1000,
+                "timewindowMs" : 86400000
+              },
+              "aggregation" : {
+                "type" : "NONE",
+                "limit" : 200
+              }
+            },
+            "showTitle" : true,
+            "backgroundColor" : "rgb(255, 255, 255)",
+            "color" : "rgba(0, 0, 0, 0.87)",
+            "padding" : "4px",
+            "settings" : {
+              "enableSelection" : true,
+              "enableSearch" : true,
+              "displayDetails" : true,
+              "allowAcknowledgment" : true,
+              "allowClear" : true,
+              "displayPagination" : true,
+              "defaultPageSize" : 10,
+              "defaultSortOrder" : "-createdTime",
+              "enableSelectColumnDisplay" : false,
+              "alarmsTitle" : "Alarms",
+              "enableFilter" : true
+            },
+            "title" : "New Alarms table",
+            "dropShadow" : true,
+            "enableFullscreen" : false,
+            "titleStyle" : {
+              "fontSize" : "16px",
+              "fontWeight" : 400,
+              "padding" : "5px 10px 5px 10px"
+            },
+            "useDashboardTimewindow" : false,
+            "showLegend" : false,
+            "alarmSource" : {
+              "type" : "entity",
+              "name" : "alarms",
+              "entityAliasId" : "68a058e1-fdda-8482-715b-3ae4a488568e",
+              "filterId" : null,
+              "dataKeys" : [ {
+                "name" : "createdTime",
+                "type" : "alarm",
+                "label" : "Created time",
+                "color" : "#2196f3",
+                "settings" : { },
+                "_hash" : 0.7308410188824108
+              }, {
+                "name" : "originator",
+                "type" : "alarm",
+                "label" : "Originator",
+                "color" : "#4caf50",
+                "settings" : { },
+                "_hash" : 0.056085530105439485
+              }, {
+                "name" : "type",
+                "type" : "alarm",
+                "label" : "Type",
+                "color" : "#f44336",
+                "settings" : { },
+                "_hash" : 0.10212012352561795
+              }, {
+                "name" : "severity",
+                "type" : "alarm",
+                "label" : "Severity",
+                "color" : "#ffc107",
+                "settings" : { },
+                "_hash" : 0.1777349980531262
+              }, {
+                "name" : "status",
+                "type" : "alarm",
+                "label" : "Status",
+                "color" : "#607d8b",
+                "settings" : { },
+                "_hash" : 0.7977920750136249
+              } ]
+            },
+            "alarmSearchStatus" : "ANY",
+            "alarmsPollingInterval" : 5,
+            "showTitleIcon" : false,
+            "titleIcon" : null,
+            "iconColor" : "rgba(0, 0, 0, 0.87)",
+            "iconSize" : "24px",
+            "titleTooltip" : "",
+            "widgetStyle" : { },
+            "displayTimewindow" : true,
+            "actions" : { },
+            "datasources" : [ ],
+            "alarmsMaxCountLoad" : 0,
+            "alarmsFetchSize" : 100
+          },
+          "id" : "7943196b-eedb-d422-f9c3-b32d379ad172"
+        },
+        "14a19183-f0b2-d6be-0f62-9863f0a51111" : {
+          "isSystemType" : true,
+          "bundleAlias" : "charts",
+          "typeAlias" : "basic_timeseries",
+          "type" : "timeseries",
+          "title" : "New widget",
+          "sizeX" : 18,
+          "sizeY" : 6,
+          "config" : {
+            "datasources" : [ {
+              "type" : "entity",
+              "dataKeys" : [ {
+                "name" : "temperature",
+                "type" : "timeseries",
+                "label" : "Temperature",
+                "color" : "#ef5350",
+                "settings" : {
+                  "excludeFromStacking" : false,
+                  "hideDataByDefault" : false,
+                  "disableDataHiding" : false,
+                  "removeFromLegend" : false,
+                  "showLines" : true,
+                  "fillLines" : true,
+                  "showPoints" : false,
+                  "showPointShape" : "circle",
+                  "pointShapeFormatter" : "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
+                  "showPointsLineWidth" : 5,
+                  "showPointsRadius" : 3,
+                  "showSeparateAxis" : false,
+                  "axisPosition" : "left",
+                  "thresholds" : [ {
+                    "thresholdValueSource" : "predefinedValue"
+                  } ],
+                  "comparisonSettings" : {
+                    "showValuesForComparison" : true
+                  }
+                },
+                "_hash" : 0.7852346160709658,
+                "units" : "°C",
+                "decimals" : 1
+              } ],
+              "entityAliasId" : "12ae98c7-1ea2-52cf-64d5-763e9d993547"
+            } ],
+            "timewindow" : {
+              "realtime" : {
+                "interval" : 30000,
+                "timewindowMs" : 3600000
+              },
+              "aggregation" : {
+                "type" : "AVG",
+                "limit" : 25000
+              }
+            },
+            "showTitle" : true,
+            "backgroundColor" : "#fff",
+            "color" : "rgba(0, 0, 0, 0.87)",
+            "padding" : "8px",
+            "settings" : {
+              "shadowSize" : 4,
+              "fontColor" : "#545454",
+              "fontSize" : 10,
+              "xaxis" : {
+                "showLabels" : true,
+                "color" : "#545454"
+              },
+              "yaxis" : {
+                "showLabels" : true,
+                "color" : "#545454"
+              },
+              "grid" : {
+                "color" : "#545454",
+                "tickColor" : "#DDDDDD",
+                "verticalLines" : true,
+                "horizontalLines" : true,
+                "outlineWidth" : 1
+              },
+              "stack" : false,
+              "tooltipIndividual" : false,
+              "timeForComparison" : "months",
+              "xaxisSecond" : {
+                "axisPosition" : "top",
+                "showLabels" : true
+              },
+              "smoothLines" : true
+            },
+            "title" : "Temperature",
+            "dropShadow" : true,
+            "enableFullscreen" : true,
+            "titleStyle" : {
+              "fontSize" : "16px",
+              "fontWeight" : 400
+            },
+            "mobileHeight" : null,
+            "showTitleIcon" : false,
+            "titleIcon" : null,
+            "iconColor" : "rgba(0, 0, 0, 0.87)",
+            "iconSize" : "24px",
+            "titleTooltip" : "",
+            "widgetStyle" : { },
+            "useDashboardTimewindow" : false,
+            "displayTimewindow" : true,
+            "showLegend" : true,
+            "legendConfig" : {
+              "direction" : "column",
+              "position" : "bottom",
+              "showMin" : true,
+              "showMax" : true,
+              "showAvg" : true,
+              "showTotal" : false
+            },
+            "actions" : { }
+          },
+          "id" : "14a19183-f0b2-d6be-0f62-9863f0a51111"
+        },
+        "07f49fd5-a73b-d74c-c220-362c20af81f4" : {
+          "isSystemType" : true,
+          "bundleAlias" : "charts",
+          "typeAlias" : "basic_timeseries",
+          "type" : "timeseries",
+          "title" : "New widget",
+          "sizeX" : 18,
+          "sizeY" : 6,
+          "config" : {
+            "datasources" : [ {
+              "type" : "entity",
+              "dataKeys" : [ {
+                "name" : "humidity",
+                "type" : "timeseries",
+                "label" : "Humidity",
+                "color" : "#2196f3",
+                "settings" : {
+                  "excludeFromStacking" : false,
+                  "hideDataByDefault" : false,
+                  "disableDataHiding" : false,
+                  "removeFromLegend" : false,
+                  "showLines" : true,
+                  "fillLines" : true,
+                  "showPoints" : false,
+                  "showPointShape" : "circle",
+                  "pointShapeFormatter" : "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
+                  "showPointsLineWidth" : 5,
+                  "showPointsRadius" : 3,
+                  "showSeparateAxis" : false,
+                  "axisPosition" : "left",
+                  "thresholds" : [ {
+                    "thresholdValueSource" : "predefinedValue"
+                  } ],
+                  "comparisonSettings" : {
+                    "showValuesForComparison" : true
+                  }
+                },
+                "_hash" : 0.28640715926957183,
+                "units" : "%",
+                "decimals" : 0
+              } ],
+              "entityAliasId" : "12ae98c7-1ea2-52cf-64d5-763e9d993547"
+            } ],
+            "timewindow" : {
+              "realtime" : {
+                "interval" : 30000,
+                "timewindowMs" : 3600000
+              },
+              "aggregation" : {
+                "type" : "AVG",
+                "limit" : 25000
+              }
+            },
+            "showTitle" : true,
+            "backgroundColor" : "#fff",
+            "color" : "rgba(0, 0, 0, 0.87)",
+            "padding" : "8px",
+            "settings" : {
+              "shadowSize" : 4,
+              "fontColor" : "#545454",
+              "fontSize" : 10,
+              "xaxis" : {
+                "showLabels" : true,
+                "color" : "#545454"
+              },
+              "yaxis" : {
+                "showLabels" : true,
+                "color" : "#545454"
+              },
+              "grid" : {
+                "color" : "#545454",
+                "tickColor" : "#DDDDDD",
+                "verticalLines" : true,
+                "horizontalLines" : true,
+                "outlineWidth" : 1
+              },
+              "stack" : false,
+              "tooltipIndividual" : false,
+              "timeForComparison" : "months",
+              "xaxisSecond" : {
+                "axisPosition" : "top",
+                "showLabels" : true
+              },
+              "smoothLines" : true
+            },
+            "title" : "Humidity",
+            "dropShadow" : true,
+            "enableFullscreen" : true,
+            "titleStyle" : {
+              "fontSize" : "16px",
+              "fontWeight" : 400
+            },
+            "mobileHeight" : null,
+            "showTitleIcon" : false,
+            "titleIcon" : null,
+            "iconColor" : "rgba(0, 0, 0, 0.87)",
+            "iconSize" : "24px",
+            "titleTooltip" : "",
+            "widgetStyle" : { },
+            "useDashboardTimewindow" : false,
+            "displayTimewindow" : true,
+            "showLegend" : true,
+            "legendConfig" : {
+              "direction" : "column",
+              "position" : "bottom",
+              "showMin" : true,
+              "showMax" : true,
+              "showAvg" : true,
+              "showTotal" : false
+            },
+            "actions" : { }
+          },
+          "id" : "07f49fd5-a73b-d74c-c220-362c20af81f4"
+        },
+        "c4631f94-2db3-523b-4d09-2a1a0a75d93f" : {
+          "isSystemType" : true,
+          "bundleAlias" : "input_widgets",
+          "typeAlias" : "update_multiple_attributes",
+          "type" : "latest",
+          "title" : "New widget",
+          "sizeX" : 6,
+          "sizeY" : 6,
+          "config" : {
+            "datasources" : [ {
+              "type" : "entity",
+              "dataKeys" : [ {
+                "name" : "temperatureAlarmFlag",
+                "type" : "attribute",
+                "label" : "High temperature alarm",
+                "color" : "#4caf50",
+                "settings" : {
+                  "dataKeyType" : "server",
+                  "dataKeyValueType" : "booleanCheckbox",
+                  "required" : false,
+                  "isEditable" : "editable",
+                  "dataKeyHidden" : false,
+                  "step" : 1
+                },
+                "_hash" : 0.8725278440159361
+              }, {
+                "name" : "temperatureAlarmThreshold",
+                "type" : "attribute",
+                "label" : "High temperature threshold, °C",
+                "color" : "#f44336",
+                "settings" : {
+                  "dataKeyType" : "server",
+                  "dataKeyValueType" : "double",
+                  "required" : false,
+                  "isEditable" : "editable",
+                  "dataKeyHidden" : false,
+                  "step" : 1,
+                  "disabledOnDataKey" : "temperatureAlarmFlag"
+                },
+                "_hash" : 0.7316078472857874
+              }, {
+                "name" : "humidityAlarmFlag",
+                "type" : "attribute",
+                "label" : "Low humidity alarm",
+                "color" : "#ffc107",
+                "settings" : {
+                  "dataKeyType" : "server",
+                  "dataKeyValueType" : "booleanCheckbox",
+                  "required" : false,
+                  "isEditable" : "editable",
+                  "dataKeyHidden" : false,
+                  "step" : 1
+                },
+                "_hash" : 0.5339673667431057
+              }, {
+                "name" : "humidityAlarmThreshold",
+                "type" : "attribute",
+                "label" : "Low humidity threshold, %",
+                "color" : "#607d8b",
+                "settings" : {
+                  "dataKeyType" : "server",
+                  "dataKeyValueType" : "double",
+                  "required" : false,
+                  "isEditable" : "editable",
+                  "dataKeyHidden" : false,
+                  "step" : 1,
+                  "disabledOnDataKey" : "humidityAlarmFlag"
+                },
+                "_hash" : 0.2687091190358901
+              } ],
+              "entityAliasId" : "12ae98c7-1ea2-52cf-64d5-763e9d993547"
+            } ],
+            "timewindow" : {
+              "realtime" : {
+                "timewindowMs" : 60000
+              }
+            },
+            "showTitle" : true,
+            "backgroundColor" : "#fff",
+            "color" : "rgba(0, 0, 0, 0.87)",
+            "padding" : "8px",
+            "settings" : {
+              "showActionButtons" : false,
+              "showResultMessage" : true,
+              "fieldsAlignment" : "column",
+              "fieldsInRow" : 2,
+              "groupTitle" : "${entityName}",
+              "widgetTitle" : "Termostat settings"
+            },
+            "title" : "New Update Multiple Attributes",
+            "dropShadow" : true,
+            "enableFullscreen" : false,
+            "enableDataExport" : false,
+            "widgetStyle" : { },
+            "titleStyle" : {
+              "fontSize" : "16px",
+              "fontWeight" : 400
+            },
+            "useDashboardTimewindow" : true,
+            "showLegend" : false,
+            "actions" : { },
+            "showTitleIcon" : false,
+            "titleIcon" : null,
+            "iconColor" : "rgba(0, 0, 0, 0.87)",
+            "iconSize" : "24px",
+            "titleTooltip" : "",
+            "displayTimewindow" : true
+          },
+          "id" : "c4631f94-2db3-523b-4d09-2a1a0a75d93f"
+        },
+        "3da9a9a1-0b9a-2e1f-0dcb-0ff34a695abb" : {
+          "isSystemType" : true,
+          "bundleAlias" : "maps_v2",
+          "typeAlias" : "openstreetmap",
+          "type" : "latest",
+          "title" : "New widget",
+          "sizeX" : 13,
+          "sizeY" : 6,
+          "config" : {
+            "datasources" : [ {
+              "type" : "entity",
+              "dataKeys" : [ {
+                "name" : "temperature",
+                "type" : "timeseries",
+                "label" : "temperature",
+                "color" : "#2196f3",
+                "settings" : { },
+                "_hash" : 0.1371919646686739,
+                "decimals" : 1,
+                "postFuncBody" : "return value || \"\";"
+              }, {
+                "name" : "humidity",
+                "type" : "timeseries",
+                "label" : "humidity",
+                "color" : "#4caf50",
+                "settings" : { },
+                "_hash" : 0.043177186765847475,
+                "decimals" : 0,
+                "postFuncBody" : "return value || \"\";"
+              }, {
+                "name" : "longitude",
+                "type" : "attribute",
+                "label" : "longitude",
+                "color" : "#f44336",
+                "settings" : { },
+                "_hash" : 0.5548964320315584
+              }, {
+                "name" : "latitude",
+                "type" : "attribute",
+                "label" : "latitude",
+                "color" : "#ffc107",
+                "settings" : { },
+                "_hash" : 0.1803778014971602
+              }, {
+                "name" : "active",
+                "type" : "attribute",
+                "label" : "active",
+                "color" : "#607d8b",
+                "settings" : { },
+                "_hash" : 0.30926987994082844
+              } ],
+              "entityAliasId" : "68a058e1-fdda-8482-715b-3ae4a488568e"
+            } ],
+            "timewindow" : {
+              "realtime" : {
+                "timewindowMs" : 60000
+              }
+            },
+            "showTitle" : false,
+            "backgroundColor" : "#fff",
+            "color" : "rgba(0, 0, 0, 0.87)",
+            "padding" : "8px",
+            "settings" : {
+              "provider" : "openstreet-map",
+              "gmApiKey" : "AIzaSyDoEx2kaGz3PxwbI9T7ccTSg5xjdw8Nw8Q",
+              "gmDefaultMapType" : "roadmap",
+              "mapProvider" : "OpenStreetMap.HOT",
+              "useCustomProvider" : false,
+              "customProviderTileUrl" : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+              "mapProviderHere" : "HERE.normalDay",
+              "credentials" : {
+                "app_id" : "AhM6TzD9ThyK78CT3ptx",
+                "app_code" : "p6NPiITB3Vv0GMUFnkLOOg"
+              },
+              "mapImageUrl" : "data:image/svg+xml;base64,PHN2ZyBpZD0ic3ZnMiIgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMTAwIiB3aWR0aD0iMTAwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgdmlld0JveD0iMCAwIDEwMCAxMDAiPgogPGcgaWQ9ImxheWVyMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAtOTUyLjM2KSI+CiAgPHJlY3QgaWQ9InJlY3Q0Njg0IiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBoZWlnaHQ9Ijk5LjAxIiB3aWR0aD0iOTkuMDEiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiB5PSI5NTIuODYiIHg9Ii40OTUwNSIgc3Ryb2tlLXdpZHRoPSIuOTkwMTAiIGZpbGw9IiNlZWUiLz4KICA8dGV4dCBpZD0idGV4dDQ2ODYiIHN0eWxlPSJ3b3JkLXNwYWNpbmc6MHB4O2xldHRlci1zcGFjaW5nOjBweDt0ZXh0LWFuY2hvcjptaWRkbGU7dGV4dC1hbGlnbjpjZW50ZXIiIGZvbnQtd2VpZ2h0PSJib2xkIiB4bWw6c3BhY2U9InByZXNlcnZlIiBmb250LXNpemU9IjEwcHgiIGxpbmUtaGVpZ2h0PSIxMjUlIiB5PSI5NzAuNzI4MDkiIHg9IjQ5LjM5NjQ3NyIgZm9udC1mYW1pbHk9IlJvYm90byIgZmlsbD0iIzY2NjY2NiI+PHRzcGFuIGlkPSJ0c3BhbjQ2OTAiIHg9IjUwLjY0NjQ3NyIgeT0iOTcwLjcyODA5Ij5JbWFnZSBiYWNrZ3JvdW5kIDwvdHNwYW4+PHRzcGFuIGlkPSJ0c3BhbjQ2OTIiIHg9IjQ5LjM5NjQ3NyIgeT0iOTgzLjIyODA5Ij5pcyBub3QgY29uZmlndXJlZDwvdHNwYW4+PC90ZXh0PgogIDxyZWN0IGlkPSJyZWN0NDY5NCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgaGVpZ2h0PSIxOS4zNiIgd2lkdGg9IjY5LjM2IiBzdHJva2U9IiMwMDAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgeT0iOTkyLjY4IiB4PSIxNS4zMiIgc3Ryb2tlLXdpZHRoPSIuNjM5ODYiIGZpbGw9Im5vbmUiLz4KIDwvZz4KPC9zdmc+Cg==",
+              "tmApiKey" : "84d6d83e0e51e481e50454ccbe8986b",
+              "tmDefaultMapType" : "roadmap",
+              "latKeyName" : "latitude",
+              "lngKeyName" : "longitude",
+              "xPosKeyName" : "xPos",
+              "yPosKeyName" : "yPos",
+              "defaultZoomLevel" : 14,
+              "defaultCenterPosition" : [ 0, 0 ],
+              "disableScrollZooming" : false,
+              "disableDoubleClickZooming" : false,
+              "disableZoomControl" : false,
+              "fitMapBounds" : true,
+              "useDefaultCenterPosition" : false,
+              "mapPageSize" : 16384,
+              "markerOffsetX" : 0.5,
+              "markerOffsetY" : 1,
+              "draggableMarker" : false,
+              "showLabel" : true,
+              "useLabelFunction" : true,
+              "labelFunction" : "var color;\nif(dsData[dsIndex].active !== \"true\"){\n    color = 'rgb(255, 0, 0)';\n} else {\n    color = 'rgb(39, 134, 34)';\n}\nreturn '<span style=\"border: solid ' + color + '; border-radius: 10px; color: ' + color + '; background-color: #fff; padding: 3px 5px; font-size: 14px\">' + \n           '${entityLabel}' + \n        '</span>'",
+              "showTooltip" : true,
+              "showTooltipAction" : "click",
+              "autocloseTooltip" : true,
+              "useTooltipFunction" : false,
+              "tooltipPattern" : "<b>${entityName}</b><br/><br/><b>Temperature:</b> ${temperature:1} °C<br/><b>Humidity:</b> ${humidity:0} %<br/><br/><link-act name=\"navigate_to_details\">Thermostat details</link-act><br/>",
+              "tooltipOffsetX" : 0,
+              "tooltipOffsetY" : -1,
+              "color" : "#fe7569",
+              "useColorFunction" : false,
+              "useMarkerImageFunction" : true,
+              "markerImageFunction" : "var res;\nif(dsData[dsIndex].active !== \"true\"){\n\tvar res = {\n\t    url: images[2],\n\t    size: 10,\n\t    center: true\n\t}\n} else {\n    var res = {\n\t    url: images[2],\n\t    size: 48\n\t}\n}\nreturn res;",
+              "markerImages" : [ "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJzdmc0NDA4IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCAxNTAgMTUwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48c3R5bGU+LnN0MntmaWxsOiNmNDQzMzZ9PC9zdHlsZT48ZyBpZD0ibGF5ZXIxIj48ZyBpZD0icGF0aDY4ODEtMy01LTUtMS04LTQtNC03LTgiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNDYuNDM4IC0yNzYuMDI4KSIgb3BhY2l0eT0iLjg5MiI+PHJhZGlhbEdyYWRpZW50IGlkPSJTVkdJRF8xXyIgY3g9IjMwODUuMjE1IiBjeT0iMzE3OC40NTgiIHI9IjQ5LjkwMSIgZ3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCguNjc5MyAuMDA3NiAtLjUwOSAuNTYxMiAtMjMyLjYyOSAtMTQxMS43MjUpIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIwIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLW9wYWNpdHk9Ii4xODgiLz48L3JhZGlhbEdyYWRpZW50PjxwYXRoIGQ9Ik0yODUuNiAzODguNWMxMC4zLTEyLjQgNC40LTIyLjQtMTQuNC0yMi40LTE4LjkgMC00Mi40IDEwLTUzLjkgMjIuNC0xNi44IDE4IC40IDIzLjUtLjIgMzUtLjEgMS44IDMuOSAxLjggNyAwIDE5LjgtMTEuNSA0Ni41LTE3IDYxLjUtMzUiIGZpbGw9InVybCgjU1ZHSURfMV8pIi8+PC9nPjxwYXRoIGlkPSJwYXRoNjg4MS0zLTUtNS0xLTgtNC00IiBjbGFzcz0ic3QyIiBkPSJNMTI0LjcgNjkuMWMtLjktMjcuNS0yMi4zLTQ5LjgtNDkuOC00OS44cy00OSAyMi4zLTQ5LjggNDkuOGMtMS4zIDQwLjEgMzAuNyA1Mi4yIDQ0LjcgNzggMi4yIDQgOCA0IDEwLjEgMCAxNC4xLTI1LjggNDYuMS0zNy45IDQ0LjgtNzgiLz48L2c+PGcgaWQ9Imc0OTI4Ij48Y2lyY2xlIGlkPSJwYXRoNDk3OCIgY2xhc3M9InN0MiIgY3g9Ijc0LjkiIGN5PSI2OS4xIiByPSI0OS45Ii8+PGcgaWQ9Imc0OTE1Ij48cGF0aCBpZD0icGF0aDY4ODMtMi0zLTUtMi00LTktNC05IiBkPSJNNzQuOCAxMDYuNGMtMjAuNiAwLTM3LjQtMTYuNy0zNy40LTM3LjQgMC0yMC42IDE2LjctMzcuNCAzNy40LTM3LjQgMjAuNiAwIDM3LjQgMTYuNyAzNy40IDM3LjRzLTE2LjcgMzcuNC0zNy40IDM3LjQiIGZpbGw9IiNmZmYiLz48L2c+PC9nPjxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik05NS45IDQ2LjZWNDloLTEwdi0yLjVsMTAgLjF6bS0yIDUuM2gtOHYyLjVoOHYtMi41em0tOCA3LjloNnYtMi41aC02djIuNXptNCAyLjloLTR2Mi41aDR2LTIuNXptLTQgNy44aDJWNjhoLTJ2Mi41em0xLjUgMTRjMCA2LjktNS41IDEyLjUtMTIuMyAxMi41cy0xMi4zLTUuNi0xMi4zLTEyLjVjMC00LjUgMi4zLTguNSA2LjEtMTAuN1Y0NS41YzAtMy41IDIuOC02LjMgNi4yLTYuM3M2LjIgMi44IDYuMiA2LjN2MjguM2MzLjggMi4yIDYuMSA2LjMgNi4xIDEwLjd6bS0yLjQgMGMwLTMuOC0yLjEtNy4yLTUuNC04LjlsLS43LS4zVjQ1LjVjMC0yLjEtMS43LTMuOC0zLjgtMy44LTIuMSAwLTMuOCAxLjctMy44IDMuOHYyOS44bC0uNy4zYy0zLjMgMS43LTUuNCA1LjEtNS40IDguOSAwIDUuNSA0LjQgMTAgOS45IDEwUzg1IDkwIDg1IDg0LjV6bS0yLjEgMGMwIDQuNC0zLjUgOC03LjggOHMtNy44LTMuNi03LjgtOGMwLTMuNiAyLjQtNi44IDUuOC03LjdsLjUtLjFWNjEuNWgzLjF2MTUuMmwuNS4xYzMuMyAxIDUuNyA0LjEgNS43IDcuN3ptLTcuNC01LjNjLS4yLS44LTEtMS40LTEuOS0xLjItMyAuNy01IDMuMy01IDYuNCAwIC45LjcgMS42IDEuNiAxLjZzMS42LS43IDEuNi0xLjZjMC0xLjYgMS4xLTMgMi42LTMuMy43LS4yIDEuMy0xIDEuMS0xLjl6Ii8+PC9zdmc+", "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJzdmc0NDA4IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCAxNTAgMTUwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48c3R5bGU+LnN0MntmaWxsOiMyNzg2MjJ9PC9zdHlsZT48ZyBpZD0ibGF5ZXIxIj48ZyBpZD0icGF0aDY4ODEtMy01LTUtMS04LTQtNC03LTgiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNDYuNDM4IC0yNzYuMDI4KSIgb3BhY2l0eT0iLjg5MiI+PHJhZGlhbEdyYWRpZW50IGlkPSJTVkdJRF8xXyIgY3g9IjMwODUuMjE1IiBjeT0iMzE3OC40NTgiIHI9IjQ5LjkwMSIgZ3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCguNjc5MyAuMDA3NiAtLjUwOSAuNTYxMiAtMjMyLjYyOSAtMTQxMS43MjUpIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIwIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLW9wYWNpdHk9Ii4xODgiLz48L3JhZGlhbEdyYWRpZW50PjxwYXRoIGQ9Ik0yODUuNiAzODguNWMxMC4zLTEyLjQgNC40LTIyLjQtMTQuNC0yMi40LTE4LjkgMC00Mi40IDEwLTUzLjkgMjIuNC0xNi44IDE4IC40IDIzLjUtLjIgMzUtLjEgMS44IDMuOSAxLjggNyAwIDE5LjgtMTEuNSA0Ni41LTE3IDYxLjUtMzUiIGZpbGw9InVybCgjU1ZHSURfMV8pIi8+PC9nPjxwYXRoIGlkPSJwYXRoNjg4MS0zLTUtNS0xLTgtNC00IiBjbGFzcz0ic3QyIiBkPSJNMTI0LjcgNjkuMWMtLjktMjcuNS0yMi4zLTQ5LjgtNDkuOC00OS44cy00OSAyMi4zLTQ5LjggNDkuOGMtMS4zIDQwLjEgMzAuNyA1Mi4yIDQ0LjcgNzggMi4yIDQgOCA0IDEwLjEgMCAxNC4xLTI1LjggNDYuMS0zNy45IDQ0LjgtNzgiLz48L2c+PGcgaWQ9Imc0OTI4Ij48Y2lyY2xlIGlkPSJwYXRoNDk3OCIgY2xhc3M9InN0MiIgY3g9Ijc0LjkiIGN5PSI2OS4xIiByPSI0OS45Ii8+PGcgaWQ9Imc0OTE1Ij48cGF0aCBpZD0icGF0aDY4ODMtMi0zLTUtMi00LTktNC05IiBkPSJNNzQuOCAxMDYuNGMtMjAuNiAwLTM3LjQtMTYuNy0zNy40LTM3LjQgMC0yMC42IDE2LjctMzcuNCAzNy40LTM3LjQgMjAuNiAwIDM3LjQgMTYuNyAzNy40IDM3LjRzLTE2LjcgMzcuNC0zNy40IDM3LjQiIGZpbGw9IiNmZmYiLz48L2c+PC9nPjxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik05NS45IDQ2LjZWNDloLTEwdi0yLjVsMTAgLjF6bS0yIDUuM2gtOHYyLjVoOHYtMi41em0tOCA3LjloNnYtMi41aC02djIuNXptNCAyLjloLTR2Mi41aDR2LTIuNXptLTQgNy44aDJWNjhoLTJ2Mi41em0xLjUgMTRjMCA2LjktNS41IDEyLjUtMTIuMyAxMi41cy0xMi4zLTUuNi0xMi4zLTEyLjVjMC00LjUgMi4zLTguNSA2LjEtMTAuN1Y0NS41YzAtMy41IDIuOC02LjMgNi4yLTYuM3M2LjIgMi44IDYuMiA2LjN2MjguM2MzLjggMi4yIDYuMSA2LjMgNi4xIDEwLjd6bS0yLjQgMGMwLTMuOC0yLjEtNy4yLTUuNC04LjlsLS43LS4zVjQ1LjVjMC0yLjEtMS43LTMuOC0zLjgtMy44LTIuMSAwLTMuOCAxLjctMy44IDMuOHYyOS44bC0uNy4zYy0zLjMgMS43LTUuNCA1LjEtNS40IDguOSAwIDUuNSA0LjQgMTAgOS45IDEwUzg1IDkwIDg1IDg0LjV6bS0yLjEgMGMwIDQuNC0zLjUgOC03LjggOHMtNy44LTMuNi03LjgtOGMwLTMuNiAyLjQtNi44IDUuOC03LjdsLjUtLjFWNjEuNWgzLjF2MTUuMmwuNS4xYzMuMyAxIDUuNyA0LjEgNS43IDcuN3ptLTcuNC01LjNjLS4yLS44LTEtMS40LTEuOS0xLjItMyAuNy01IDMuMy01IDYuNCAwIC45LjcgMS42IDEuNiAxLjZzMS42LS43IDEuNi0xLjZjMC0xLjYgMS4xLTMgMi42LTMuMy43LS4yIDEuMy0xIDEuMS0xLjl6Ii8+PC9zdmc+Cg==", "data:image/png;base64,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" ],
+              "showPolygon" : false,
+              "polygonKeyName" : "coordinates",
+              "editablePolygon" : false,
+              "showPolygonLabel" : false,
+              "usePolygonLabelFunction" : false,
+              "polygonLabel" : "${entityName}",
+              "showPolygonTooltip" : false,
+              "showPolygonTooltipAction" : "click",
+              "autoClosePolygonTooltip" : true,
+              "usePolygonTooltipFunction" : false,
+              "polygonTooltipPattern" : "<b>${entityName}</b><br/><br/><b>TimeStamp:</b> ${ts:7}",
+              "polygonColor" : "#3388ff",
+              "polygonOpacity" : 0.5,
+              "usePolygonColorFunction" : false,
+              "polygonStrokeColor" : "#3388ff",
+              "polygonStrokeOpacity" : 1,
+              "polygonStrokeWeight" : 1,
+              "usePolygonStrokeColorFunction" : false,
+              "showCircle" : false,
+              "circleKeyName" : "perimeter",
+              "editableCircle" : false,
+              "showCircleLabel" : false,
+              "useCircleLabelFunction" : false,
+              "circleLabel" : "${entityName}",
+              "showCircleTooltip" : false,
+              "showCircleTooltipAction" : "click",
+              "autoCloseCircleTooltip" : true,
+              "useCircleTooltipFunction" : false,
+              "circleTooltipPattern" : "<b>${entityName}</b><br/><br/><b>TimeStamp:</b> ${ts:7}",
+              "circleFillColor" : "#3388ff",
+              "circleFillColorOpacity" : 0.2,
+              "useCircleFillColorFunction" : false,
+              "circleStrokeColor" : "#3388ff",
+              "circleStrokeOpacity" : 1,
+              "circleStrokeWeight" : 3,
+              "useCircleStrokeColorFunction" : false,
+              "useClusterMarkers" : false,
+              "zoomOnClick" : true,
+              "maxClusterRadius" : 80,
+              "animate" : true,
+              "spiderfyOnMaxZoom" : false,
+              "showCoverageOnHover" : true,
+              "chunkedLoading" : false,
+              "removeOutsideVisibleBounds" : true
+            },
+            "title" : "Thermostat maps",
+            "dropShadow" : true,
+            "enableFullscreen" : false,
+            "titleStyle" : {
+              "fontSize" : "16px",
+              "fontWeight" : 400
+            },
+            "useDashboardTimewindow" : true,
+            "showLegend" : false,
+            "widgetStyle" : { },
+            "actions" : {
+              "headerButton" : [ ],
+              "tooltipAction" : [ {
+                "id" : "bef25673-b37a-8821-bc0f-5d6dd3680f24",
+                "name" : "navigate_to_details",
+                "icon" : "more_horiz",
+                "type" : "openDashboardState",
+                "targetDashboardStateId" : "chart",
+                "setEntityId" : true
+              } ]
+            },
+            "showTitleIcon" : false,
+            "titleIcon" : null,
+            "iconColor" : "rgba(0, 0, 0, 0.87)",
+            "iconSize" : "24px",
+            "titleTooltip" : "",
+            "displayTimewindow" : true
+          },
+          "id" : "3da9a9a1-0b9a-2e1f-0dcb-0ff34a695abb"
+        },
+        "00fb2742-ba1f-7e43-673f-d6c08b72ed06" : {
+          "isSystemType" : true,
+          "bundleAlias" : "input_widgets",
+          "typeAlias" : "markers_placement_openstreetmap",
+          "type" : "latest",
+          "title" : "New widget",
+          "sizeX" : 24,
+          "sizeY" : 12,
+          "config" : {
+            "datasources" : [ {
+              "type" : "entity",
+              "dataKeys" : [ {
+                "name" : "longitude",
+                "type" : "attribute",
+                "label" : "longitude",
+                "color" : "#2196f3",
+                "settings" : { },
+                "_hash" : 0.3640193654284214
+              }, {
+                "name" : "latitude",
+                "type" : "attribute",
+                "label" : "latitude",
+                "color" : "#4caf50",
+                "settings" : { },
+                "_hash" : 0.49020393887695923
+              }, {
+                "name" : "temperature",
+                "type" : "timeseries",
+                "label" : "temperature",
+                "color" : "#f44336",
+                "settings" : { },
+                "_hash" : 0.5885892766009955,
+                "postFuncBody" : "return value || \"\";"
+              }, {
+                "name" : "humidity",
+                "type" : "timeseries",
+                "label" : "humidity",
+                "color" : "#ffc107",
+                "settings" : { },
+                "_hash" : 0.21077893588180707,
+                "postFuncBody" : "return value || \"\";"
+              }, {
+                "name" : "active",
+                "type" : "attribute",
+                "label" : "active",
+                "color" : "#607d8b",
+                "settings" : { },
+                "_hash" : 0.34722983638504346
+              } ],
+              "entityAliasId" : "68a058e1-fdda-8482-715b-3ae4a488568e"
+            } ],
+            "timewindow" : {
+              "realtime" : {
+                "timewindowMs" : 60000
+              }
+            },
+            "showTitle" : false,
+            "backgroundColor" : "#fff",
+            "color" : "rgba(0, 0, 0, 0.87)",
+            "padding" : "8px",
+            "settings" : {
+              "fitMapBounds" : true,
+              "latKeyName" : "latitude",
+              "lngKeyName" : "longitude",
+              "showLabel" : true,
+              "label" : "${entityName}",
+              "tooltipPattern" : "<b>${entityName}</b><br/><br/><b>Temperature:</b> ${temperature:1} °C<br/><b>Humidity:</b> ${humidity:0} %<br/><br/><link-act name='delete'>Delete</link-act>",
+              "markerImageSize" : 34,
+              "useColorFunction" : false,
+              "markerImages" : [ "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJzdmc0NDA4IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCAxNTAgMTUwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48c3R5bGU+LnN0MntmaWxsOiNmNDQzMzZ9PC9zdHlsZT48ZyBpZD0ibGF5ZXIxIj48ZyBpZD0icGF0aDY4ODEtMy01LTUtMS04LTQtNC03LTgiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNDYuNDM4IC0yNzYuMDI4KSIgb3BhY2l0eT0iLjg5MiI+PHJhZGlhbEdyYWRpZW50IGlkPSJTVkdJRF8xXyIgY3g9IjMwODUuMjE1IiBjeT0iMzE3OC40NTgiIHI9IjQ5LjkwMSIgZ3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCguNjc5MyAuMDA3NiAtLjUwOSAuNTYxMiAtMjMyLjYyOSAtMTQxMS43MjUpIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIwIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLW9wYWNpdHk9Ii4xODgiLz48L3JhZGlhbEdyYWRpZW50PjxwYXRoIGQ9Ik0yODUuNiAzODguNWMxMC4zLTEyLjQgNC40LTIyLjQtMTQuNC0yMi40LTE4LjkgMC00Mi40IDEwLTUzLjkgMjIuNC0xNi44IDE4IC40IDIzLjUtLjIgMzUtLjEgMS44IDMuOSAxLjggNyAwIDE5LjgtMTEuNSA0Ni41LTE3IDYxLjUtMzUiIGZpbGw9InVybCgjU1ZHSURfMV8pIi8+PC9nPjxwYXRoIGlkPSJwYXRoNjg4MS0zLTUtNS0xLTgtNC00IiBjbGFzcz0ic3QyIiBkPSJNMTI0LjcgNjkuMWMtLjktMjcuNS0yMi4zLTQ5LjgtNDkuOC00OS44cy00OSAyMi4zLTQ5LjggNDkuOGMtMS4zIDQwLjEgMzAuNyA1Mi4yIDQ0LjcgNzggMi4yIDQgOCA0IDEwLjEgMCAxNC4xLTI1LjggNDYuMS0zNy45IDQ0LjgtNzgiLz48L2c+PGcgaWQ9Imc0OTI4Ij48Y2lyY2xlIGlkPSJwYXRoNDk3OCIgY2xhc3M9InN0MiIgY3g9Ijc0LjkiIGN5PSI2OS4xIiByPSI0OS45Ii8+PGcgaWQ9Imc0OTE1Ij48cGF0aCBpZD0icGF0aDY4ODMtMi0zLTUtMi00LTktNC05IiBkPSJNNzQuOCAxMDYuNGMtMjAuNiAwLTM3LjQtMTYuNy0zNy40LTM3LjQgMC0yMC42IDE2LjctMzcuNCAzNy40LTM3LjQgMjAuNiAwIDM3LjQgMTYuNyAzNy40IDM3LjRzLTE2LjcgMzcuNC0zNy40IDM3LjQiIGZpbGw9IiNmZmYiLz48L2c+PC9nPjxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik05NS45IDQ2LjZWNDloLTEwdi0yLjVsMTAgLjF6bS0yIDUuM2gtOHYyLjVoOHYtMi41em0tOCA3LjloNnYtMi41aC02djIuNXptNCAyLjloLTR2Mi41aDR2LTIuNXptLTQgNy44aDJWNjhoLTJ2Mi41em0xLjUgMTRjMCA2LjktNS41IDEyLjUtMTIuMyAxMi41cy0xMi4zLTUuNi0xMi4zLTEyLjVjMC00LjUgMi4zLTguNSA2LjEtMTAuN1Y0NS41YzAtMy41IDIuOC02LjMgNi4yLTYuM3M2LjIgMi44IDYuMiA2LjN2MjguM2MzLjggMi4yIDYuMSA2LjMgNi4xIDEwLjd6bS0yLjQgMGMwLTMuOC0yLjEtNy4yLTUuNC04LjlsLS43LS4zVjQ1LjVjMC0yLjEtMS43LTMuOC0zLjgtMy44LTIuMSAwLTMuOCAxLjctMy44IDMuOHYyOS44bC0uNy4zYy0zLjMgMS43LTUuNCA1LjEtNS40IDguOSAwIDUuNSA0LjQgMTAgOS45IDEwUzg1IDkwIDg1IDg0LjV6bS0yLjEgMGMwIDQuNC0zLjUgOC03LjggOHMtNy44LTMuNi03LjgtOGMwLTMuNiAyLjQtNi44IDUuOC03LjdsLjUtLjFWNjEuNWgzLjF2MTUuMmwuNS4xYzMuMyAxIDUuNyA0LjEgNS43IDcuN3ptLTcuNC01LjNjLS4yLS44LTEtMS40LTEuOS0xLjItMyAuNy01IDMuMy01IDYuNCAwIC45LjcgMS42IDEuNiAxLjZzMS42LS43IDEuNi0xLjZjMC0xLjYgMS4xLTMgMi42LTMuMy43LS4yIDEuMy0xIDEuMS0xLjl6Ii8+PC9zdmc+", "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJzdmc0NDA4IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCAxNTAgMTUwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48c3R5bGU+LnN0MntmaWxsOiMyNzg2MjJ9PC9zdHlsZT48ZyBpZD0ibGF5ZXIxIj48ZyBpZD0icGF0aDY4ODEtMy01LTUtMS04LTQtNC03LTgiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNDYuNDM4IC0yNzYuMDI4KSIgb3BhY2l0eT0iLjg5MiI+PHJhZGlhbEdyYWRpZW50IGlkPSJTVkdJRF8xXyIgY3g9IjMwODUuMjE1IiBjeT0iMzE3OC40NTgiIHI9IjQ5LjkwMSIgZ3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCguNjc5MyAuMDA3NiAtLjUwOSAuNTYxMiAtMjMyLjYyOSAtMTQxMS43MjUpIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIwIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLW9wYWNpdHk9Ii4xODgiLz48L3JhZGlhbEdyYWRpZW50PjxwYXRoIGQ9Ik0yODUuNiAzODguNWMxMC4zLTEyLjQgNC40LTIyLjQtMTQuNC0yMi40LTE4LjkgMC00Mi40IDEwLTUzLjkgMjIuNC0xNi44IDE4IC40IDIzLjUtLjIgMzUtLjEgMS44IDMuOSAxLjggNyAwIDE5LjgtMTEuNSA0Ni41LTE3IDYxLjUtMzUiIGZpbGw9InVybCgjU1ZHSURfMV8pIi8+PC9nPjxwYXRoIGlkPSJwYXRoNjg4MS0zLTUtNS0xLTgtNC00IiBjbGFzcz0ic3QyIiBkPSJNMTI0LjcgNjkuMWMtLjktMjcuNS0yMi4zLTQ5LjgtNDkuOC00OS44cy00OSAyMi4zLTQ5LjggNDkuOGMtMS4zIDQwLjEgMzAuNyA1Mi4yIDQ0LjcgNzggMi4yIDQgOCA0IDEwLjEgMCAxNC4xLTI1LjggNDYuMS0zNy45IDQ0LjgtNzgiLz48L2c+PGcgaWQ9Imc0OTI4Ij48Y2lyY2xlIGlkPSJwYXRoNDk3OCIgY2xhc3M9InN0MiIgY3g9Ijc0LjkiIGN5PSI2OS4xIiByPSI0OS45Ii8+PGcgaWQ9Imc0OTE1Ij48cGF0aCBpZD0icGF0aDY4ODMtMi0zLTUtMi00LTktNC05IiBkPSJNNzQuOCAxMDYuNGMtMjAuNiAwLTM3LjQtMTYuNy0zNy40LTM3LjQgMC0yMC42IDE2LjctMzcuNCAzNy40LTM3LjQgMjAuNiAwIDM3LjQgMTYuNyAzNy40IDM3LjRzLTE2LjcgMzcuNC0zNy40IDM3LjQiIGZpbGw9IiNmZmYiLz48L2c+PC9nPjxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik05NS45IDQ2LjZWNDloLTEwdi0yLjVsMTAgLjF6bS0yIDUuM2gtOHYyLjVoOHYtMi41em0tOCA3LjloNnYtMi41aC02djIuNXptNCAyLjloLTR2Mi41aDR2LTIuNXptLTQgNy44aDJWNjhoLTJ2Mi41em0xLjUgMTRjMCA2LjktNS41IDEyLjUtMTIuMyAxMi41cy0xMi4zLTUuNi0xMi4zLTEyLjVjMC00LjUgMi4zLTguNSA2LjEtMTAuN1Y0NS41YzAtMy41IDIuOC02LjMgNi4yLTYuM3M2LjIgMi44IDYuMiA2LjN2MjguM2MzLjggMi4yIDYuMSA2LjMgNi4xIDEwLjd6bS0yLjQgMGMwLTMuOC0yLjEtNy4yLTUuNC04LjlsLS43LS4zVjQ1LjVjMC0yLjEtMS43LTMuOC0zLjgtMy44LTIuMSAwLTMuOCAxLjctMy44IDMuOHYyOS44bC0uNy4zYy0zLjMgMS43LTUuNCA1LjEtNS40IDguOSAwIDUuNSA0LjQgMTAgOS45IDEwUzg1IDkwIDg1IDg0LjV6bS0yLjEgMGMwIDQuNC0zLjUgOC03LjggOHMtNy44LTMuNi03LjgtOGMwLTMuNiAyLjQtNi44IDUuOC03LjdsLjUtLjFWNjEuNWgzLjF2MTUuMmwuNS4xYzMuMyAxIDUuNyA0LjEgNS43IDcuN3ptLTcuNC01LjNjLS4yLS44LTEtMS40LTEuOS0xLjItMyAuNy01IDMuMy01IDYuNCAwIC45LjcgMS42IDEuNiAxLjZzMS42LS43IDEuNi0xLjZjMC0xLjYgMS4xLTMgMi42LTMuMy43LS4yIDEuMy0xIDEuMS0xLjl6Ii8+PC9zdmc+Cg==" ],
+              "useMarkerImageFunction" : true,
+              "color" : "#fe7569",
+              "mapProvider" : "OpenStreetMap.HOT",
+              "showTooltip" : true,
+              "autocloseTooltip" : true,
+              "defaultCenterPosition" : "0,0",
+              "customProviderTileUrl" : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+              "showTooltipAction" : "click",
+              "polygonKeyName" : "coordinates",
+              "polygonOpacity" : 0.5,
+              "polygonStrokeOpacity" : 1,
+              "polygonStrokeWeight" : 1,
+              "zoomOnClick" : true,
+              "showCoverageOnHover" : true,
+              "animate" : true,
+              "maxClusterRadius" : 80,
+              "removeOutsideVisibleBounds" : true,
+              "defaultZoomLevel" : 12,
+              "labelFunction" : "var color;\nif(dsData[dsIndex].active !== \"true\"){\n    color = 'rgb(255, 0, 0)';\n} else {\n    color = 'rgb(39, 134, 34)';\n}\nreturn '<span style=\"border: solid ' + color + '; border-radius: 10px; color: ' + color + '; background-color: #fff; padding: 3px 5px; font-size: 14px\">' + \n           '${entityLabel}' + \n        '</span>'",
+              "markerImageFunction" : "var res;\nif(dsData[dsIndex].active !== \"true\"){\n\tvar res = {\n\t    url: images[0],\n\t    size: 48\n\t}\n} else {\n    var res = {\n\t    url: images[1],\n\t    size: 48\n\t}\n}\nreturn res;",
+              "useLabelFunction" : true,
+              "provider" : "openstreet-map",
+              "draggableMarker" : true
+            },
+            "title" : "New Markers Placement - OpenStreetMap",
+            "dropShadow" : true,
+            "enableFullscreen" : false,
+            "titleStyle" : {
+              "fontSize" : "16px",
+              "fontWeight" : 400
+            },
+            "useDashboardTimewindow" : true,
+            "showLegend" : false,
+            "widgetStyle" : { },
+            "actions" : {
+              "tooltipAction" : [ {
+                "name" : "delete",
+                "icon" : "more_horiz",
+                "type" : "custom",
+                "customFunction" : "var entityDatasource = widgetContext.mapInstance.datasources.filter(\n    function(entity) {\n        return entity.entityId === entityId.id\n    });\n\nwidgetContext.mapInstance.saveMarkerLocation(entityDatasource[0], null, null).subscribe(function success() {\n        widgetContext.updateAliases();\n});",
+                "id" : "54c293c4-9ca6-e34f-dc6a-0271944c1c66"
+              } ]
+            },
+            "showTitleIcon" : false,
+            "titleIcon" : null,
+            "iconColor" : "rgba(0, 0, 0, 0.87)",
+            "iconSize" : "24px",
+            "titleTooltip" : "",
+            "displayTimewindow" : true
+          },
+          "id" : "00fb2742-ba1f-7e43-673f-d6c08b72ed06"
+        },
+        "0a430429-9078-9ae6-2b67-e4a15a2bf8bf" : {
+          "isSystemType" : true,
+          "bundleAlias" : "input_widgets",
+          "typeAlias" : "markers_placement_openstreetmap",
+          "type" : "latest",
+          "title" : "New widget",
+          "sizeX" : 6,
+          "sizeY" : 6,
+          "config" : {
+            "datasources" : [ {
+              "type" : "entity",
+              "dataKeys" : [ {
+                "name" : "longitude",
+                "type" : "attribute",
+                "label" : "longitude",
+                "color" : "#2196f3",
+                "settings" : { },
+                "_hash" : 0.3640193654284214
+              }, {
+                "name" : "latitude",
+                "type" : "attribute",
+                "label" : "latitude",
+                "color" : "#4caf50",
+                "settings" : { },
+                "_hash" : 0.49020393887695923
+              }, {
+                "name" : "temperature",
+                "type" : "timeseries",
+                "label" : "temperature",
+                "color" : "#f44336",
+                "settings" : { },
+                "_hash" : 0.5885892766009955,
+                "postFuncBody" : "return value || \"\";"
+              }, {
+                "name" : "humidity",
+                "type" : "timeseries",
+                "label" : "humidity",
+                "color" : "#ffc107",
+                "settings" : { },
+                "_hash" : 0.21077893588180707,
+                "postFuncBody" : "return value || \"\";"
+              }, {
+                "name" : "active",
+                "type" : "attribute",
+                "label" : "active",
+                "color" : "#607d8b",
+                "settings" : { },
+                "_hash" : 0.34722983638504346
+              } ],
+              "entityAliasId" : "12ae98c7-1ea2-52cf-64d5-763e9d993547"
+            } ],
+            "timewindow" : {
+              "realtime" : {
+                "timewindowMs" : 60000
+              }
+            },
+            "showTitle" : false,
+            "backgroundColor" : "#fff",
+            "color" : "rgba(0, 0, 0, 0.87)",
+            "padding" : "8px",
+            "settings" : {
+              "fitMapBounds" : true,
+              "latKeyName" : "latitude",
+              "lngKeyName" : "longitude",
+              "showLabel" : true,
+              "label" : "${entityName}",
+              "tooltipPattern" : "<b>${entityName}</b><br/><br/><b>Temperature:</b> ${temperature:1} °C<br/><b>Humidity:</b> ${humidity:0} %<br/><br/><link-act name='delete'>Delete</link-act>",
+              "markerImageSize" : 34,
+              "useColorFunction" : false,
+              "markerImages" : [ "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJzdmc0NDA4IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCAxNTAgMTUwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48c3R5bGU+LnN0MntmaWxsOiNmNDQzMzZ9PC9zdHlsZT48ZyBpZD0ibGF5ZXIxIj48ZyBpZD0icGF0aDY4ODEtMy01LTUtMS04LTQtNC03LTgiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNDYuNDM4IC0yNzYuMDI4KSIgb3BhY2l0eT0iLjg5MiI+PHJhZGlhbEdyYWRpZW50IGlkPSJTVkdJRF8xXyIgY3g9IjMwODUuMjE1IiBjeT0iMzE3OC40NTgiIHI9IjQ5LjkwMSIgZ3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCguNjc5MyAuMDA3NiAtLjUwOSAuNTYxMiAtMjMyLjYyOSAtMTQxMS43MjUpIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIwIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLW9wYWNpdHk9Ii4xODgiLz48L3JhZGlhbEdyYWRpZW50PjxwYXRoIGQ9Ik0yODUuNiAzODguNWMxMC4zLTEyLjQgNC40LTIyLjQtMTQuNC0yMi40LTE4LjkgMC00Mi40IDEwLTUzLjkgMjIuNC0xNi44IDE4IC40IDIzLjUtLjIgMzUtLjEgMS44IDMuOSAxLjggNyAwIDE5LjgtMTEuNSA0Ni41LTE3IDYxLjUtMzUiIGZpbGw9InVybCgjU1ZHSURfMV8pIi8+PC9nPjxwYXRoIGlkPSJwYXRoNjg4MS0zLTUtNS0xLTgtNC00IiBjbGFzcz0ic3QyIiBkPSJNMTI0LjcgNjkuMWMtLjktMjcuNS0yMi4zLTQ5LjgtNDkuOC00OS44cy00OSAyMi4zLTQ5LjggNDkuOGMtMS4zIDQwLjEgMzAuNyA1Mi4yIDQ0LjcgNzggMi4yIDQgOCA0IDEwLjEgMCAxNC4xLTI1LjggNDYuMS0zNy45IDQ0LjgtNzgiLz48L2c+PGcgaWQ9Imc0OTI4Ij48Y2lyY2xlIGlkPSJwYXRoNDk3OCIgY2xhc3M9InN0MiIgY3g9Ijc0LjkiIGN5PSI2OS4xIiByPSI0OS45Ii8+PGcgaWQ9Imc0OTE1Ij48cGF0aCBpZD0icGF0aDY4ODMtMi0zLTUtMi00LTktNC05IiBkPSJNNzQuOCAxMDYuNGMtMjAuNiAwLTM3LjQtMTYuNy0zNy40LTM3LjQgMC0yMC42IDE2LjctMzcuNCAzNy40LTM3LjQgMjAuNiAwIDM3LjQgMTYuNyAzNy40IDM3LjRzLTE2LjcgMzcuNC0zNy40IDM3LjQiIGZpbGw9IiNmZmYiLz48L2c+PC9nPjxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik05NS45IDQ2LjZWNDloLTEwdi0yLjVsMTAgLjF6bS0yIDUuM2gtOHYyLjVoOHYtMi41em0tOCA3LjloNnYtMi41aC02djIuNXptNCAyLjloLTR2Mi41aDR2LTIuNXptLTQgNy44aDJWNjhoLTJ2Mi41em0xLjUgMTRjMCA2LjktNS41IDEyLjUtMTIuMyAxMi41cy0xMi4zLTUuNi0xMi4zLTEyLjVjMC00LjUgMi4zLTguNSA2LjEtMTAuN1Y0NS41YzAtMy41IDIuOC02LjMgNi4yLTYuM3M2LjIgMi44IDYuMiA2LjN2MjguM2MzLjggMi4yIDYuMSA2LjMgNi4xIDEwLjd6bS0yLjQgMGMwLTMuOC0yLjEtNy4yLTUuNC04LjlsLS43LS4zVjQ1LjVjMC0yLjEtMS43LTMuOC0zLjgtMy44LTIuMSAwLTMuOCAxLjctMy44IDMuOHYyOS44bC0uNy4zYy0zLjMgMS43LTUuNCA1LjEtNS40IDguOSAwIDUuNSA0LjQgMTAgOS45IDEwUzg1IDkwIDg1IDg0LjV6bS0yLjEgMGMwIDQuNC0zLjUgOC03LjggOHMtNy44LTMuNi03LjgtOGMwLTMuNiAyLjQtNi44IDUuOC03LjdsLjUtLjFWNjEuNWgzLjF2MTUuMmwuNS4xYzMuMyAxIDUuNyA0LjEgNS43IDcuN3ptLTcuNC01LjNjLS4yLS44LTEtMS40LTEuOS0xLjItMyAuNy01IDMuMy01IDYuNCAwIC45LjcgMS42IDEuNiAxLjZzMS42LS43IDEuNi0xLjZjMC0xLjYgMS4xLTMgMi42LTMuMy43LS4yIDEuMy0xIDEuMS0xLjl6Ii8+PC9zdmc+", "data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJzdmc0NDA4IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjAiIHk9IjAiIHZpZXdCb3g9IjAgMCAxNTAgMTUwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48c3R5bGU+LnN0MntmaWxsOiMyNzg2MjJ9PC9zdHlsZT48ZyBpZD0ibGF5ZXIxIj48ZyBpZD0icGF0aDY4ODEtMy01LTUtMS04LTQtNC03LTgiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNDYuNDM4IC0yNzYuMDI4KSIgb3BhY2l0eT0iLjg5MiI+PHJhZGlhbEdyYWRpZW50IGlkPSJTVkdJRF8xXyIgY3g9IjMwODUuMjE1IiBjeT0iMzE3OC40NTgiIHI9IjQ5LjkwMSIgZ3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCguNjc5MyAuMDA3NiAtLjUwOSAuNTYxMiAtMjMyLjYyOSAtMTQxMS43MjUpIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIwIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLW9wYWNpdHk9Ii4xODgiLz48L3JhZGlhbEdyYWRpZW50PjxwYXRoIGQ9Ik0yODUuNiAzODguNWMxMC4zLTEyLjQgNC40LTIyLjQtMTQuNC0yMi40LTE4LjkgMC00Mi40IDEwLTUzLjkgMjIuNC0xNi44IDE4IC40IDIzLjUtLjIgMzUtLjEgMS44IDMuOSAxLjggNyAwIDE5LjgtMTEuNSA0Ni41LTE3IDYxLjUtMzUiIGZpbGw9InVybCgjU1ZHSURfMV8pIi8+PC9nPjxwYXRoIGlkPSJwYXRoNjg4MS0zLTUtNS0xLTgtNC00IiBjbGFzcz0ic3QyIiBkPSJNMTI0LjcgNjkuMWMtLjktMjcuNS0yMi4zLTQ5LjgtNDkuOC00OS44cy00OSAyMi4zLTQ5LjggNDkuOGMtMS4zIDQwLjEgMzAuNyA1Mi4yIDQ0LjcgNzggMi4yIDQgOCA0IDEwLjEgMCAxNC4xLTI1LjggNDYuMS0zNy45IDQ0LjgtNzgiLz48L2c+PGcgaWQ9Imc0OTI4Ij48Y2lyY2xlIGlkPSJwYXRoNDk3OCIgY2xhc3M9InN0MiIgY3g9Ijc0LjkiIGN5PSI2OS4xIiByPSI0OS45Ii8+PGcgaWQ9Imc0OTE1Ij48cGF0aCBpZD0icGF0aDY4ODMtMi0zLTUtMi00LTktNC05IiBkPSJNNzQuOCAxMDYuNGMtMjAuNiAwLTM3LjQtMTYuNy0zNy40LTM3LjQgMC0yMC42IDE2LjctMzcuNCAzNy40LTM3LjQgMjAuNiAwIDM3LjQgMTYuNyAzNy40IDM3LjRzLTE2LjcgMzcuNC0zNy40IDM3LjQiIGZpbGw9IiNmZmYiLz48L2c+PC9nPjxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik05NS45IDQ2LjZWNDloLTEwdi0yLjVsMTAgLjF6bS0yIDUuM2gtOHYyLjVoOHYtMi41em0tOCA3LjloNnYtMi41aC02djIuNXptNCAyLjloLTR2Mi41aDR2LTIuNXptLTQgNy44aDJWNjhoLTJ2Mi41em0xLjUgMTRjMCA2LjktNS41IDEyLjUtMTIuMyAxMi41cy0xMi4zLTUuNi0xMi4zLTEyLjVjMC00LjUgMi4zLTguNSA2LjEtMTAuN1Y0NS41YzAtMy41IDIuOC02LjMgNi4yLTYuM3M2LjIgMi44IDYuMiA2LjN2MjguM2MzLjggMi4yIDYuMSA2LjMgNi4xIDEwLjd6bS0yLjQgMGMwLTMuOC0yLjEtNy4yLTUuNC04LjlsLS43LS4zVjQ1LjVjMC0yLjEtMS43LTMuOC0zLjgtMy44LTIuMSAwLTMuOCAxLjctMy44IDMuOHYyOS44bC0uNy4zYy0zLjMgMS43LTUuNCA1LjEtNS40IDguOSAwIDUuNSA0LjQgMTAgOS45IDEwUzg1IDkwIDg1IDg0LjV6bS0yLjEgMGMwIDQuNC0zLjUgOC03LjggOHMtNy44LTMuNi03LjgtOGMwLTMuNiAyLjQtNi44IDUuOC03LjdsLjUtLjFWNjEuNWgzLjF2MTUuMmwuNS4xYzMuMyAxIDUuNyA0LjEgNS43IDcuN3ptLTcuNC01LjNjLS4yLS44LTEtMS40LTEuOS0xLjItMyAuNy01IDMuMy01IDYuNCAwIC45LjcgMS42IDEuNiAxLjZzMS42LS43IDEuNi0xLjZjMC0xLjYgMS4xLTMgMi42LTMuMy43LS4yIDEuMy0xIDEuMS0xLjl6Ii8+PC9zdmc+Cg==" ],
+              "useMarkerImageFunction" : true,
+              "color" : "#fe7569",
+              "mapProvider" : "OpenStreetMap.HOT",
+              "showTooltip" : true,
+              "autocloseTooltip" : true,
+              "defaultCenterPosition" : "0,0",
+              "customProviderTileUrl" : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+              "showTooltipAction" : "click",
+              "polygonKeyName" : "coordinates",
+              "polygonOpacity" : 0.5,
+              "polygonStrokeOpacity" : 1,
+              "polygonStrokeWeight" : 1,
+              "zoomOnClick" : true,
+              "showCoverageOnHover" : true,
+              "animate" : true,
+              "maxClusterRadius" : 80,
+              "removeOutsideVisibleBounds" : true,
+              "defaultZoomLevel" : 5,
+              "labelFunction" : "var color;\nif(dsData[dsIndex].active !== \"true\"){\n    color = 'rgb(255, 0, 0)';\n} else {\n    color = 'rgb(39, 134, 34)';\n}\nreturn '<span style=\"border: solid ' + color + '; border-radius: 10px; color: ' + color + '; background-color: #fff; padding: 3px 5px; font-size: 14px\">' + \n           '${entityLabel}' + \n        '</span>'",
+              "markerImageFunction" : "var res;\nif(dsData[dsIndex].active !== \"true\"){\n\tvar res = {\n\t    url: images[0],\n\t    size: 48\n\t}\n} else {\n    var res = {\n\t    url: images[1],\n\t    size: 48\n\t}\n}\nreturn res;",
+              "useLabelFunction" : true,
+              "provider" : "openstreet-map",
+              "draggableMarker" : true,
+              "editablePolygon" : true
+            },
+            "title" : "New Markers Placement - OpenStreetMap",
+            "dropShadow" : true,
+            "enableFullscreen" : false,
+            "titleStyle" : {
+              "fontSize" : "16px",
+              "fontWeight" : 400
+            },
+            "useDashboardTimewindow" : true,
+            "showLegend" : false,
+            "widgetStyle" : { },
+            "actions" : {
+              "tooltipAction" : [ {
+                "name" : "delete",
+                "icon" : "more_horiz",
+                "type" : "custom",
+                "customFunction" : "var entityDatasource = widgetContext.mapInstance.datasources.filter(\n    function(entity) {\n        return entity.entityId === entityId.id\n    });\n\nwidgetContext.mapInstance.saveMarkerLocation(entityDatasource[0], null, null).subscribe(function success() {\n        widgetContext.updateAliases();\n});",
+                "id" : "54c293c4-9ca6-e34f-dc6a-0271944c1c66"
+              } ]
+            },
+            "showTitleIcon" : false,
+            "titleIcon" : null,
+            "iconColor" : "rgba(0, 0, 0, 0.87)",
+            "iconSize" : "24px",
+            "titleTooltip" : "",
+            "displayTimewindow" : true
+          },
+          "id" : "0a430429-9078-9ae6-2b67-e4a15a2bf8bf"
+        }
+      },
+      "states" : {
+        "default" : {
+          "name" : "Thermostats",
+          "root" : true,
+          "layouts" : {
+            "main" : {
+              "widgets" : {
+                "f33c746c-0dfc-c212-395b-b448c8a17209" : {
+                  "sizeX" : 11,
+                  "sizeY" : 11,
+                  "row" : 0,
+                  "col" : 0
+                },
+                "7943196b-eedb-d422-f9c3-b32d379ad172" : {
+                  "sizeX" : 13,
+                  "sizeY" : 5,
+                  "row" : 0,
+                  "col" : 11
+                },
+                "3da9a9a1-0b9a-2e1f-0dcb-0ff34a695abb" : {
+                  "sizeX" : 13,
+                  "sizeY" : 6,
+                  "row" : 5,
+                  "col" : 11
+                }
+              },
+              "gridSettings" : {
+                "backgroundColor" : "#eeeeee",
+                "color" : "rgba(0,0,0,0.870588)",
+                "columns" : 24,
+                "backgroundSizeMode" : "100%",
+                "autoFillHeight" : true,
+                "mobileAutoFillHeight" : false,
+                "mobileRowHeight" : 70,
+                "margin" : 10
+              }
+            }
+          }
+        },
+        "map" : {
+          "name" : "Edit location",
+          "root" : false,
+          "layouts" : {
+            "main" : {
+              "widgets" : {
+                "00fb2742-ba1f-7e43-673f-d6c08b72ed06" : {
+                  "sizeX" : 24,
+                  "sizeY" : 12,
+                  "row" : 0,
+                  "col" : 0
+                }
+              },
+              "gridSettings" : {
+                "backgroundColor" : "#eeeeee",
+                "color" : "rgba(0,0,0,0.870588)",
+                "columns" : 24,
+                "backgroundSizeMode" : "100%",
+                "autoFillHeight" : true,
+                "mobileAutoFillHeight" : false,
+                "mobileRowHeight" : 70,
+                "margin" : 10
+              }
+            }
+          }
+        },
+        "chart" : {
+          "name" : "${entityName}",
+          "root" : false,
+          "layouts" : {
+            "main" : {
+              "widgets" : {
+                "14a19183-f0b2-d6be-0f62-9863f0a51111" : {
+                  "sizeX" : 18,
+                  "sizeY" : 6,
+                  "mobileHeight" : null,
+                  "row" : 0,
+                  "col" : 6
+                },
+                "07f49fd5-a73b-d74c-c220-362c20af81f4" : {
+                  "sizeX" : 18,
+                  "sizeY" : 6,
+                  "mobileHeight" : null,
+                  "row" : 6,
+                  "col" : 6
+                },
+                "c4631f94-2db3-523b-4d09-2a1a0a75d93f" : {
+                  "sizeX" : 6,
+                  "sizeY" : 6,
+                  "row" : 0,
+                  "col" : 0
+                },
+                "0a430429-9078-9ae6-2b67-e4a15a2bf8bf" : {
+                  "sizeX" : 6,
+                  "sizeY" : 6,
+                  "row" : 6,
+                  "col" : 0
+                }
+              },
+              "gridSettings" : {
+                "backgroundColor" : "#eeeeee",
+                "color" : "rgba(0,0,0,0.870588)",
+                "columns" : 24,
+                "backgroundSizeMode" : "100%",
+                "autoFillHeight" : true,
+                "mobileAutoFillHeight" : false,
+                "mobileRowHeight" : 70,
+                "margin" : 10
+              }
+            }
+          }
+        }
+      },
+      "entityAliases" : {
+        "68a058e1-fdda-8482-715b-3ae4a488568e" : {
+          "id" : "68a058e1-fdda-8482-715b-3ae4a488568e",
+          "alias" : "Thermostats",
+          "filter" : {
+            "type" : "deviceType",
+            "resolveMultiple" : true,
+            "deviceType" : "thermostat",
+            "deviceNameFilter" : ""
+          }
+        },
+        "12ae98c7-1ea2-52cf-64d5-763e9d993547" : {
+          "id" : "12ae98c7-1ea2-52cf-64d5-763e9d993547",
+          "alias" : "Thermostat",
+          "filter" : {
+            "type" : "stateEntity",
+            "resolveMultiple" : false,
+            "stateEntityParamName" : null,
+            "defaultStateEntity" : null
+          }
+        }
+      },
+      "timewindow" : {
+        "displayValue" : "",
+        "selectedTab" : 0,
+        "hideInterval" : false,
+        "hideAggregation" : false,
+        "hideAggInterval" : false,
+        "realtime" : {
+          "interval" : 1000,
+          "timewindowMs" : 60000
+        },
+        "history" : {
+          "historyType" : 0,
+          "interval" : 1000,
+          "timewindowMs" : 60000,
+          "fixedTimewindow" : {
+            "startTimeMs" : 1587473857304,
+            "endTimeMs" : 1587560257304
+          }
+        },
+        "aggregation" : {
+          "type" : "AVG",
+          "limit" : 25000
+        }
+      },
+      "settings" : {
+        "stateControllerId" : "entity",
+        "showTitle" : false,
+        "showDashboardsSelect" : true,
+        "showEntitiesSelect" : true,
+        "showDashboardTimewindow" : true,
+        "showDashboardExport" : true,
+        "toolbarAlwaysOpen" : true
+      },
+      "filters" : { }
+    },
+    "createdTime" : 1666704778322,
+    "customerId" : null,
+    "externalId" : null,
+    "id" : {
+      "entityType" : "DASHBOARD",
+      "id" : "8a140320-5469-11ed-9f85-db03f6161c68"
+    },
+    "image" : null,
+    "mobileHide" : false,
+    "mobileOrder" : null,
+    "name" : "Thermostats",
+    "ownerId" : null,
+    "tenantId" : null,
+    "title" : "Thermostats"
+  },
+  "attributes" : {
+    "SERVER_SCOPE" : [ ]
+  }
+}
