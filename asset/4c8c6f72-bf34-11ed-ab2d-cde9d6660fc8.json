@@ -20,9 +20,16 @@
     "ownerId" : null,
     "type" : "default"
   },
-  "relations" : [ ],
   "attributes" : {
     "SERVER_SCOPE" : [ {
+      "booleanValue" : null,
+      "doubleValue" : null,
+      "jsonValue" : null,
+      "key" : "3",
+      "lastUpdateTs" : 1691572557242,
+      "longValue" : null,
+      "strValue" : "3"
+    }, {
       "booleanValue" : null,
       "doubleValue" : null,
       "jsonValue" : null,
