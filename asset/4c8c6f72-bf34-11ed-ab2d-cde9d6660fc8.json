@@ -1,7 +1,9 @@
 {
   "entityType" : "ASSET",
   "entity" : {
-    "additionalInfo" : { },
+    "additionalInfo" : {
+      "description" : "test 123"
+    },
     "assetProfileId" : {
       "entityType" : "ASSET_PROFILE",
       "id" : "2bb4bea0-bc29-11ed-ab2d-cde9d6660fc8"
