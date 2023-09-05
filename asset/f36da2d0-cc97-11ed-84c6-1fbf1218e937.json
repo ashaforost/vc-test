@@ -1,29 +1,24 @@
 {
   "entityType" : "ASSET",
   "entity" : {
-    "additionalInfo" : {
-      "description" : "test 123"
-    },
+    "additionalInfo" : { },
     "assetProfileId" : {
       "entityType" : "ASSET_PROFILE",
-      "id" : "2bb4bea0-bc29-11ed-ab2d-cde9d6660fc8"
+      "id" : "fc09fda0-cc95-11ed-84c6-1fbf1218e937"
     },
     "customerId" : {
       "entityType" : "CUSTOMER",
       "id" : "13814000-1dd2-11b2-8080-808080808080"
     },
-    "externalId" : {
-      "entityType" : "ASSET",
-      "id" : "4c8c6f72-bf34-11ed-ab2d-cde9d6660fc8"
-    },
+    "externalId" : null,
     "id" : {
       "entityType" : "ASSET",
-      "id" : "4c8c6f72-bf34-11ed-ab2d-cde9d6660fc8"
+      "id" : "f36da2d0-cc97-11ed-84c6-1fbf1218e937"
     },
     "label" : null,
-    "name" : "asset3",
+    "name" : "Empire State Building2",
     "ownerId" : null,
-    "type" : "default"
+    "type" : "Building"
   },
   "relations" : [ ],
   "attributes" : {
@@ -31,26 +26,34 @@
       "booleanValue" : null,
       "doubleValue" : null,
       "jsonValue" : null,
-      "key" : "3",
-      "lastUpdateTs" : 1691572557242,
+      "key" : "Address:",
+      "lastUpdateTs" : 1679918875966,
       "longValue" : null,
-      "strValue" : "3"
+      "strValue" : "390 North Front Street "
     }, {
       "booleanValue" : null,
       "doubleValue" : null,
       "jsonValue" : null,
-      "key" : "attr1",
-      "lastUpdateTs" : 1678446742969,
+      "key" : "City:",
+      "lastUpdateTs" : 1679918875966,
       "longValue" : null,
-      "strValue" : "attr1.1"
+      "strValue" : "Belleville"
     }, {
       "booleanValue" : null,
       "doubleValue" : null,
       "jsonValue" : null,
-      "key" : "attr2",
-      "lastUpdateTs" : 1678446742969,
+      "key" : "Postal Code:",
+      "lastUpdateTs" : 1679918875966,
       "longValue" : null,
-      "strValue" : "attr2.1"
+      "strValue" : "K8P 3E1"
+    }, {
+      "booleanValue" : null,
+      "doubleValue" : null,
+      "jsonValue" : null,
+      "key" : "Province:",
+      "lastUpdateTs" : 1679918875966,
+      "longValue" : null,
+      "strValue" : "ON"
     } ]
   }
 }

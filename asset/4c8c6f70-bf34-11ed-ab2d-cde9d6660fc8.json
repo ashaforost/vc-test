@@ -1,9 +1,7 @@
 {
   "entityType" : "ASSET",
   "entity" : {
-    "additionalInfo" : {
-      "description" : "test 123"
-    },
+    "additionalInfo" : { },
     "assetProfileId" : {
       "entityType" : "ASSET_PROFILE",
       "id" : "2bb4bea0-bc29-11ed-ab2d-cde9d6660fc8"
@@ -12,30 +10,19 @@
       "entityType" : "CUSTOMER",
       "id" : "13814000-1dd2-11b2-8080-808080808080"
     },
-    "externalId" : {
-      "entityType" : "ASSET",
-      "id" : "4c8c6f72-bf34-11ed-ab2d-cde9d6660fc8"
-    },
+    "externalId" : null,
     "id" : {
       "entityType" : "ASSET",
-      "id" : "4c8c6f72-bf34-11ed-ab2d-cde9d6660fc8"
+      "id" : "4c8c6f70-bf34-11ed-ab2d-cde9d6660fc8"
     },
     "label" : null,
-    "name" : "asset3",
+    "name" : "asset2",
     "ownerId" : null,
     "type" : "default"
   },
   "relations" : [ ],
   "attributes" : {
     "SERVER_SCOPE" : [ {
-      "booleanValue" : null,
-      "doubleValue" : null,
-      "jsonValue" : null,
-      "key" : "3",
-      "lastUpdateTs" : 1691572557242,
-      "longValue" : null,
-      "strValue" : "3"
-    }, {
       "booleanValue" : null,
       "doubleValue" : null,
       "jsonValue" : null,
