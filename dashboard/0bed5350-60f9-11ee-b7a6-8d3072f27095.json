@@ -1,0 +1,201 @@
+{
+  "entityType" : "DASHBOARD",
+  "entity" : {
+    "assignedCustomers" : null,
+    "configuration" : {
+      "description" : "",
+      "widgets" : {
+        "b2243494-e0fe-07b2-2fa1-2c100c30b81f" : {
+          "isSystemType" : true,
+          "bundleAlias" : "control_widgets",
+          "typeAlias" : "rpc_debug_terminal",
+          "type" : "rpc",
+          "title" : "New widget",
+          "image" : null,
+          "description" : null,
+          "sizeX" : 9.5,
+          "sizeY" : 5.5,
+          "config" : {
+            "targetDeviceAliases" : [ ],
+            "showTitle" : true,
+            "backgroundColor" : "#010101",
+            "color" : "rgba(255, 254, 254, 0.87)",
+            "padding" : "0px",
+            "settings" : {
+              "requestTimeout" : 10,
+              "requestPersistent" : false
+            },
+            "title" : "New RPC debug terminal",
+            "dropShadow" : true,
+            "enableFullscreen" : true,
+            "widgetStyle" : { },
+            "titleStyle" : {
+              "fontSize" : "16px",
+              "fontWeight" : 400
+            },
+            "useDashboardTimewindow" : true,
+            "showLegend" : false,
+            "actions" : { },
+            "datasources" : [ ],
+            "targetDeviceAliasIds" : [ "b01191aa-880f-3785-af72-19f0c67e9605" ]
+          },
+          "row" : 0,
+          "col" : 0,
+          "id" : "b2243494-e0fe-07b2-2fa1-2c100c30b81f"
+        },
+        "53992fcb-f4b5-4a9f-4ad5-c1084ee89859" : {
+          "isSystemType" : true,
+          "bundleAlias" : "control_widgets",
+          "typeAlias" : "switch_control",
+          "type" : "rpc",
+          "title" : "New widget",
+          "image" : null,
+          "description" : null,
+          "sizeX" : 4,
+          "sizeY" : 2.5,
+          "config" : {
+            "targetDeviceAliases" : [ ],
+            "showTitle" : false,
+            "backgroundColor" : "#e6e7e8",
+            "color" : "rgba(0, 0, 0, 0.87)",
+            "padding" : "0px",
+            "settings" : {
+              "title" : "Switch control",
+              "showOnOffLabels" : true,
+              "initialValue" : false,
+              "retrieveValueMethod" : "rpc",
+              "valueKey" : "value",
+              "getValueMethod" : "getValue",
+              "parseValueFunction" : "return data ? true : false;",
+              "setValueMethod" : "setValue",
+              "convertValueFunction" : "return value;",
+              "requestTimeout" : 500,
+              "requestPersistent" : false,
+              "persistentPollingInterval" : 5000
+            },
+            "title" : "New Switch Control",
+            "dropShadow" : true,
+            "enableFullscreen" : false,
+            "widgetStyle" : { },
+            "titleStyle" : {
+              "fontSize" : "16px",
+              "fontWeight" : 400
+            },
+            "useDashboardTimewindow" : true,
+            "showLegend" : false,
+            "actions" : { },
+            "decimals" : 2,
+            "datasources" : [ ],
+            "targetDeviceAliasIds" : [ "b01191aa-880f-3785-af72-19f0c67e9605" ]
+          },
+          "row" : 0,
+          "col" : 0,
+          "id" : "53992fcb-f4b5-4a9f-4ad5-c1084ee89859"
+        }
+      },
+      "states" : {
+        "default" : {
+          "name" : "t4est",
+          "root" : true,
+          "layouts" : {
+            "main" : {
+              "widgets" : {
+                "b2243494-e0fe-07b2-2fa1-2c100c30b81f" : {
+                  "sizeX" : 9,
+                  "sizeY" : 5,
+                  "row" : 0,
+                  "col" : 0
+                },
+                "53992fcb-f4b5-4a9f-4ad5-c1084ee89859" : {
+                  "sizeX" : 4,
+                  "sizeY" : 2,
+                  "row" : 5,
+                  "col" : 0
+                }
+              },
+              "gridSettings" : {
+                "backgroundColor" : "#eeeeee",
+                "columns" : 24,
+                "margin" : 10,
+                "outerMargin" : true,
+                "backgroundSizeMode" : "100%"
+              }
+            }
+          }
+        }
+      },
+      "entityAliases" : {
+        "b01191aa-880f-3785-af72-19f0c67e9605" : {
+          "id" : "b01191aa-880f-3785-af72-19f0c67e9605",
+          "alias" : "hy",
+          "filter" : {
+            "type" : "singleEntity",
+            "resolveMultiple" : false,
+            "singleEntity" : {
+              "entityType" : "DEVICE",
+              "id" : "55c0d5d0-56e3-11ee-b667-73b840b41b69"
+            }
+          }
+        },
+        "16086e01-a07f-39be-f717-01fc91acb67b" : {
+          "id" : "16086e01-a07f-39be-f717-01fc91acb67b",
+          "alias" : "all",
+          "filter" : {
+            "type" : "entityType",
+            "resolveMultiple" : true,
+            "entityType" : "DEVICE"
+          }
+        }
+      },
+      "filters" : { },
+      "timewindow" : {
+        "hideInterval" : false,
+        "hideLastInterval" : false,
+        "hideQuickInterval" : false,
+        "hideAggregation" : false,
+        "hideAggInterval" : false,
+        "hideTimezone" : false,
+        "selectedTab" : 1,
+        "history" : {
+          "historyType" : 1,
+          "timewindowMs" : 60000,
+          "interval" : 900000,
+          "fixedTimewindow" : {
+            "startTimeMs" : 1696762980000,
+            "endTimeMs" : 1696849380000
+          },
+          "quickInterval" : "CURRENT_DAY"
+        },
+        "aggregation" : {
+          "type" : "AVG",
+          "limit" : 25000
+        },
+        "timezone" : null
+      },
+      "settings" : {
+        "stateControllerId" : "entity",
+        "showTitle" : false,
+        "showDashboardsSelect" : true,
+        "showEntitiesSelect" : true,
+        "showDashboardTimewindow" : true,
+        "showDashboardExport" : true,
+        "toolbarAlwaysOpen" : true
+      }
+    },
+    "customerId" : null,
+    "externalId" : null,
+    "id" : {
+      "entityType" : "DASHBOARD",
+      "id" : "0bed5350-60f9-11ee-b7a6-8d3072f27095"
+    },
+    "image" : null,
+    "mobileHide" : false,
+    "mobileOrder" : null,
+    "name" : "t4est",
+    "ownerId" : null,
+    "title" : "t4est"
+  },
+  "attributes" : {
+    "SERVER_SCOPE" : [ ]
+  }
+}
